@@ -53,9 +53,7 @@ const Footer = () => {
                   </div>
                   
                   <div className="space-y-3">
-                    <p className="text-slate-400 text-sm leading-relaxed">
-                      En iyi oyun deneyimini sunmak için buradayız. Güvenli, hızlı ve uygun fiyatlı oyun kodları.
-                    </p>
+                    
                     <div className="flex items-center gap-2 text-slate-400 text-xs">
                       <span>© {new Date().getFullYear()}</span>
                       <span>•</span>

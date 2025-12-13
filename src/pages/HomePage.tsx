@@ -145,20 +145,7 @@ const HomePage = () => {
               </div>
             </section>
 
-            {/* 5. More Games Section */}
-            <section className="w-full">
-              <div className="rounded-3xl backdrop-blur-xl border p-8"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
-                  border: '1px solid rgba(59, 130, 246, 0.3)',
-                  boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.1)',
-                }}
-              >
-                <MoreGamesSection homepageItems={homepageItems} />
-              </div>
-            </section>
-
-            {/* 6. How It Works Section */}
+            {/* 5. How It Works Section */}
             <section className="w-full">
               <div className="rounded-3xl backdrop-blur-xl border p-8"
                 style={{
@@ -168,6 +155,19 @@ const HomePage = () => {
                 }}
               >
                 <HowItWorksSection />
+              </div>
+            </section>
+
+            {/* 6. More Games Section */}
+            <section className="w-full">
+              <div className="rounded-3xl backdrop-blur-xl border p-8"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
+                  border: '1px solid rgba(59, 130, 246, 0.3)',
+                  boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+                }}
+              >
+                <MoreGamesSection homepageItems={homepageItems} />
               </div>
             </section>
 
@@ -186,7 +186,7 @@ const HomePage = () => {
 
             {/* 8. Call To Action Section */}
             <section className="w-full">
-              <div className="rounded-3xl backdrop-blur-xl border p-8"
+              <div className="rounded-3xl backdrop-blur-xl border p-6"
                 style={{
                   background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
                   border: '1px solid rgba(59, 130, 246, 0.3)',

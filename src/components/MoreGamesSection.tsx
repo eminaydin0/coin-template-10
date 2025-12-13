@@ -28,30 +28,41 @@ const MoreGamesSection = ({ homepageItems }: MoreGamesSectionProps) => {
 
   return (
     <div className="flex flex-col">
-      {/* Compact Header */}
+      {/* Header */}
       <motion.div 
-        className="mb-5"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.2 }}
+        className="mb-8"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
       >
-        <div className="flex items-center gap-2 mb-2">
-          <div 
-            className="w-7 h-7 rounded-lg flex items-center justify-center"
-            style={{
-              background: 'rgba(59, 130, 246, 0.15)',
-              border: '1px solid rgba(96, 165, 250, 0.3)',
-            }}
-          >
-            <Sparkles className="h-4 w-4 text-blue-300" />
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-4">
+            <motion.div 
+              className="relative"
+              whileHover={{ rotate: 15, scale: 1.1 }}
+              transition={{ type: "spring" }}
+            >
+              <div 
+                className="w-14 h-14 rounded-xl flex items-center justify-center"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(236, 72, 153, 0.3))',
+                  border: '2px solid rgba(96, 165, 250, 0.4)',
+                  boxShadow: '0 8px 24px rgba(59, 130, 246, 0.3)',
+                }}
+              >
+                <Sparkles className="h-7 w-7 text-blue-300" />
+              </div>
+            </motion.div>
+            <div>
+              <h3 className="text-3xl font-black text-white mb-1">
+                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  Daha Fazla Oyun
+                </span>
+              </h3>
+              <p className="text-sm text-gray-400">Geniş oyun koleksiyonumuz</p>
+            </div>
           </div>
-          <h3 className="text-xl font-bold text-white">
-            <span className="bg-gradient-to-r from-blue-300 to-blue-300 bg-clip-text text-transparent">
-              Daha Fazla Oyun
-            </span>
-          </h3>
         </div>
-        <p className="text-gray-400 text-xs ml-9">Geniş oyun koleksiyonumuz</p>
       </motion.div>
 
       {/* Games Grid */}
@@ -82,32 +93,36 @@ const MoreGameCard = ({ item, index }: { item: HomepageItem; index: number }) =>
       >
         <motion.div
           whileHover={{ y: -4 }}
-          className="relative rounded-xl border overflow-hidden transition-all duration-300 h-full flex flex-col"
+          className="relative rounded-2xl border-2 overflow-hidden transition-all duration-300 h-full flex flex-col"
           style={{
-            background: isHovered
-              ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05))'
-              : 'rgba(0, 0, 0, 0.6)',
-            border: isHovered
-              ? '1.5px solid rgba(96, 165, 250, 0.5)'
-              : '1px solid rgba(96, 165, 250, 0.2)',
+            background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
+            border: '2px solid rgba(59, 130, 246, 0.3)',
             boxShadow: isHovered
-              ? '0 8px 24px rgba(59, 130, 246, 0.25), 0 0 40px rgba(59, 130, 246, 0.1)'
-              : '0 2px 8px rgba(0, 0, 0, 0.3)',
-            backdropFilter: 'blur(12px)',
+              ? '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.3)'
+              : '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+            backdropFilter: 'blur(20px)',
           }}
         >
-          {/* Shine Effect */}
-          {isHovered && (
-            <motion.div
-              className="absolute inset-0 z-10"
-              initial={{ x: '-100%' }}
-              animate={{ x: '100%' }}
-              transition={{ duration: 0.6 }}
-              style={{
-                background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
-              }}
-            />
-          )}
+          {/* Animated Top Border */}
+          <motion.div
+            className="absolute top-0 left-0 right-0 h-1 z-30"
+            style={{
+              background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
+            }}
+            animate={{
+              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+            }}
+            transition={{ duration: 3, repeat: Infinity }}
+          />
+
+          {/* Diagonal Accent */}
+          <div 
+            className="absolute top-0 right-0 w-32 h-32 opacity-20"
+            style={{
+              background: 'linear-gradient(135deg, transparent, rgba(96, 165, 250, 0.4))',
+              clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+            }}
+          />
 
           {/* Image */}
           <div className="relative h-32 overflow-hidden">
@@ -130,53 +145,125 @@ const MoreGameCard = ({ item, index }: { item: HomepageItem; index: number }) =>
           </div>
 
           {/* Content */}
-          <div className="p-3 flex-1 flex flex-col">
-            {/* Category & People */}
-            {item.categoryName && (
-              <div className="flex items-center justify-between mb-1.5">
-                <span
-                  className="text-[10px] font-medium px-2 py-0.5 rounded"
-                  style={{
-                    background: 'rgba(59, 130, 246, 0.15)',
-                    border: '1px solid rgba(96, 165, 250, 0.25)',
-                    color: 'rgba(96, 165, 250, 0.9)',
-                  }}
-                >
-                  {item.categoryName}
-                </span>
+          <div className="relative flex-1 flex flex-col">
+            {/* Asymmetric Header with Diagonal Cut */}
+            <div 
+              className="relative px-3 pt-3 pb-2.5 mb-2"
+              style={{
+                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.08))',
+                clipPath: 'polygon(0 0, 100% 0, 100% 70%, 0 100%)',
+              }}
+            >
+              <div className="flex items-start justify-between relative z-10">
+                {item.categoryName && (
+                  <div className="flex items-center gap-1.5">
+                    <div 
+                      className="w-5 h-5 rounded-lg flex items-center justify-center"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3))',
+                        border: '1px solid rgba(96, 165, 250, 0.4)',
+                      }}
+                    >
+                      <Gamepad2 className="h-2.5 w-2.5 text-blue-300" />
+                    </div>
+                    <span className="text-[10px] font-bold text-blue-300 uppercase tracking-wide">
+                      {item.categoryName}
+                    </span>
+                  </div>
+                )}
                 {item.people !== undefined && item.people > 0 && (
-                  <div className="flex items-center gap-1 text-[10px] text-gray-400">
-                    <Users className="h-3 w-3" />
-                    <span>{item.people}</span>
+                  <div 
+                    className="flex items-center gap-1 px-1.5 py-0.5 rounded-md"
+                    style={{
+                      background: 'rgba(0, 0, 0, 0.3)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                    }}
+                  >
+                    <Users className="h-2.5 w-2.5 text-blue-400" />
+                    <span className="text-[9px] font-bold text-gray-300">{item.people}</span>
                   </div>
                 )}
               </div>
-            )}
-            {!item.categoryName && item.people !== undefined && item.people > 0 && (
-              <div className="flex items-center justify-end mb-1.5">
-                <div className="flex items-center gap-1 text-[10px] text-gray-400">
-                  <Users className="h-3 w-3" />
-                  <span>{item.people}</span>
+            </div>
+
+            {/* Title with Side Accent */}
+            <div className="px-3 mb-3 relative">
+              <div 
+                className="absolute left-0 top-0 bottom-0 w-1 rounded-r"
+                style={{
+                  background: 'linear-gradient(180deg, #3B82F6, #8B5CF6, #EC4899)',
+                }}
+              />
+              <h3 className="text-white font-bold text-xs line-clamp-2 leading-tight pl-2.5">
+                {item.name}
+              </h3>
+            </div>
+
+            {/* Price Section - Unique Layout */}
+            <div className="mt-auto px-3 pb-3">
+              <div 
+                className="relative rounded-xl overflow-hidden"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(30, 41, 59, 0.3))',
+                  border: '2px solid rgba(59, 130, 246, 0.3)',
+                }}
+              >
+                {/* Diagonal Split Background */}
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, transparent 60%)',
+                  }}
+                />
+                
+                <div className="relative z-10 p-2">
+                  <div className="flex items-center justify-between">
+                    {/* Left: Price */}
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-0.5 mb-0.5">
+                        <div className="w-1 h-1 rounded-full bg-blue-400" />
+                        <span className="text-[8px] text-gray-400 font-bold uppercase tracking-widest">
+                          Fiyat
+                        </span>
+                      </div>
+                      {item.originalPrice && item.originalPrice !== item.price && (
+                        <span className="text-[9px] text-gray-500 line-through mb-0.5">
+                          {typeof item.originalPrice === 'string' ? item.originalPrice : `${item.originalPrice}₺`}
+                        </span>
+                      )}
+                      <span 
+                        className="text-lg font-black leading-none"
+                        style={{
+                          background: 'linear-gradient(135deg, #60A5FA, #A78BFA, #F472B6)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                        }}
+                      >
+                        {typeof item.price === 'string' ? item.price : `${item.price}₺`}
+                      </span>
+                    </div>
+
+                    {/* Right: CTA Button */}
+                    <div 
+                      className="relative px-3 py-2 rounded-lg font-black text-[9px] text-white uppercase tracking-wider overflow-hidden"
+                      style={{
+                        background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+                        boxShadow: '0 4px 16px rgba(59, 130, 246, 0.4)',
+                      }}
+                    >
+                      {/* Corner Accent */}
+                      <div 
+                        className="absolute top-0 right-0 w-6 h-6"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.2)',
+                          clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+                        }}
+                      />
+                      <span className="relative z-10">Al</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )}
-
-            {/* Title */}
-            <h3 className="text-white font-bold text-xs mb-2 line-clamp-2 leading-tight group-hover:text-blue-300 transition-colors">
-              {item.name}
-            </h3>
-
-            {/* Price */}
-            <div className="mt-auto pt-2 border-t" style={{ borderColor: 'rgba(75,85,99,0.2)' }}>
-              <div className="flex flex-col">
-                {item.originalPrice && item.originalPrice !== item.price && (
-                  <span className="text-[10px] text-gray-500 line-through">
-                    {typeof item.originalPrice === 'string' ? item.originalPrice : `${item.originalPrice}₺`}
-                  </span>
-                )}
-                <span className="text-blue-300 font-black text-sm">
-                  {typeof item.price === 'string' ? item.price : `${item.price}₺`}
-                </span>
               </div>
             </div>
           </div>

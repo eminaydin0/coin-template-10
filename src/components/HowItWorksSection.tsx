@@ -41,67 +41,80 @@ const HowItWorksSection = () => {
   ];
 
   return (
-    <section className="relative w-full h-full">
-      <div className="h-full flex flex-col justify-between">
-        {/* Modern Compact Header */}
+    <section className="relative w-full">
+      <div className="flex flex-col">
+        {/* Header */}
         <motion.div 
-          className="mb-5"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
+          className="mb-8"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="flex items-center gap-1.5 mb-1.5">
-            <div 
-              className="w-6 h-6 rounded-lg flex items-center justify-center"
-              style={{
-                background: 'rgba(59, 130, 246, 0.12)',
-                border: '1px solid rgba(96, 165, 250, 0.3)',
-              }}
-            >
-              <Sparkles className="h-3 w-3 text-blue-300" />
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-4">
+              <motion.div 
+                className="relative"
+                whileHover={{ rotate: 15, scale: 1.1 }}
+                transition={{ type: "spring" }}
+              >
+                <div 
+                  className="w-14 h-14 rounded-xl flex items-center justify-center"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(236, 72, 153, 0.3))',
+                    border: '2px solid rgba(96, 165, 250, 0.4)',
+                    boxShadow: '0 8px 24px rgba(59, 130, 246, 0.3)',
+                  }}
+                >
+                  <Sparkles className="h-7 w-7 text-blue-300" />
+                </div>
+              </motion.div>
+              <div>
+                <h3 className="text-3xl font-black text-white mb-1">
+                  <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Nasıl Çalışır?
+                  </span>
+                </h3>
+                <p className="text-sm text-gray-400">5 kolay adımda oyunlarınızı alın</p>
+              </div>
             </div>
-            <h3 className="text-lg font-bold text-white">
-              <span className="bg-gradient-to-r from-blue-300 to-blue-300 bg-clip-text text-transparent">
-                Nasıl Çalışır?
-              </span>
-            </h3>
           </div>
-          <p className="text-gray-400 text-[10px] ml-8">5 kolay adımda oyunlarınızı alın</p>
         </motion.div>
 
-        {/* Modern Steps List */}
-        <div className="flex-1 flex flex-col justify-center space-y-2">
+        {/* Steps Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           {steps.map((step, index) => (
             <motion.div
               key={step.id}
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
             >
               <StepCard step={step} index={index} totalSteps={steps.length} />
             </motion.div>
           ))}
         </div>
 
-        {/* Modern CTA Button */}
+        {/* CTA Button */}
         <motion.div 
-          className="mt-3"
+          className="flex justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4, delay: 0.6 }}
         >
           <Link
             to="/rehber"
-            className="group relative inline-flex items-center justify-center gap-1.5 w-full px-4 py-2 rounded-lg font-semibold text-white text-xs transition-all overflow-hidden"
+            className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-white text-sm transition-all overflow-hidden"
             style={{
-              background: 'linear-gradient(135deg, rgba(59, 130, 246, 1), rgba(192, 132, 252, 1))',
-              boxShadow: '0 2px 12px rgba(59, 130, 246, 0.4)',
+              background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+              boxShadow: '0 8px 32px rgba(59, 130, 246, 0.4)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 4px 20px rgba(59, 130, 246, 0.6)';
+              e.currentTarget.style.boxShadow = '0 12px 40px rgba(59, 130, 246, 0.6)';
+              e.currentTarget.style.transform = 'translateY(-2px)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 2px 12px rgba(59, 130, 246, 0.4)';
+              e.currentTarget.style.boxShadow = '0 8px 32px rgba(59, 130, 246, 0.4)';
+              e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
             <motion.div
@@ -111,7 +124,7 @@ const HowItWorksSection = () => {
               transition={{ duration: 0.5 }}
             />
             <span className="relative z-10">Detaylı Rehber</span>
-            <ArrowRight className="h-3 w-3 group-hover:translate-x-0.5 transition-transform relative z-10" />
+            <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform relative z-10" />
           </Link>
         </motion.div>
       </div>
@@ -123,78 +136,78 @@ const StepCard = ({ step, index, totalSteps }: { step: { id: number; title: stri
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="group relative">
-      {/* Minimal Connection Line */}
-      {step.id < totalSteps && (
-        <div className="absolute top-full left-4 w-0.5 h-1.5 z-10">
-          <div 
-            className="w-full h-full bg-gradient-to-b transition-all duration-300"
-            style={{
-              background: isHovered
-                ? 'linear-gradient(to bottom, rgba(96, 165, 250, 0.4), transparent)'
-                : 'linear-gradient(to bottom, rgba(96, 165, 250, 0.25), transparent)',
-            }}
-          />
-        </div>
-      )}
-
-      <motion.div 
-        className="relative rounded-lg border p-2.5 transition-all duration-300 flex items-center gap-2.5"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        whileHover={{ x: 1 }}
+    <motion.div 
+      className="relative rounded-2xl border-2 overflow-hidden transition-all duration-300 h-full flex flex-col"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      whileHover={{ y: -4 }}
+      style={{
+        background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
+        border: '2px solid rgba(59, 130, 246, 0.3)',
+        boxShadow: isHovered
+          ? '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.3)'
+          : '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+        backdropFilter: 'blur(20px)',
+      }}
+    >
+      {/* Animated Top Border */}
+      <motion.div
+        className="absolute top-0 left-0 right-0 h-1 z-30"
         style={{
-          background: isHovered
-            ? 'rgba(0, 0, 0, 0.85)'
-            : 'rgba(0, 0, 0, 0.7)',
-          border: isHovered
-            ? '1px solid rgba(96, 165, 250, 0.4)'
-            : '1px solid rgba(75, 85, 99, 0.2)',
-          boxShadow: isHovered
-            ? '0 2px 8px rgba(59, 130, 246, 0.15)'
-            : '0 1px 3px rgba(0,0,0,0.2)',
-          backdropFilter: 'blur(12px)',
+          background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
         }}
-      >
-        {/* Minimal Step Number */}
+        animate={{
+          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+        }}
+        transition={{ duration: 3, repeat: Infinity }}
+      />
+
+      {/* Diagonal Accent */}
+      <div 
+        className="absolute top-0 right-0 w-32 h-32 opacity-20"
+        style={{
+          background: 'linear-gradient(135deg, transparent, rgba(96, 165, 250, 0.4))',
+          clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+        }}
+      />
+
+      {/* Content */}
+      <div className="relative z-10 p-6 flex flex-col items-center text-center h-full">
+        {/* Step Number */}
         <div 
-          className="w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold text-[10px] flex-shrink-0 transition-all duration-300"
+          className="w-16 h-16 rounded-2xl flex items-center justify-center text-white font-black text-2xl mb-4"
           style={{
-            background: isHovered
-              ? 'linear-gradient(135deg, rgba(59, 130, 246, 1), rgba(192, 132, 252, 1))'
-              : 'linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(192, 132, 252, 0.8))',
-            boxShadow: isHovered
-              ? '0 2px 6px rgba(59, 130, 246, 0.4)'
-              : '0 1px 3px rgba(59, 130, 246, 0.3)',
-            border: '1px solid rgba(96, 165, 250, 0.3)',
+            background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+            boxShadow: '0 8px 24px rgba(59, 130, 246, 0.4)',
           }}
         >
           {step.id}
         </div>
         
-        {/* Minimal Icon */}
+        {/* Icon */}
         <div 
-          className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300"
+          className="w-14 h-14 rounded-xl flex items-center justify-center mb-4"
           style={{
-            background: isHovered
-              ? 'rgba(59, 130, 246, 0.2)'
-              : 'rgba(59, 130, 246, 0.12)',
-            border: isHovered
-              ? '1px solid rgba(96, 165, 250, 0.35)'
-              : '1px solid rgba(96, 165, 250, 0.2)',
+            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2))',
+            border: '2px solid rgba(96, 165, 250, 0.3)',
           }}
         >
-          <step.icon className="h-3.5 w-3.5 text-blue-300 transition-transform duration-300 group-hover:scale-110" />
+          <step.icon className="h-7 w-7 text-blue-300" />
         </div>
         
-        {/* Minimal Title */}
-        <div className="flex-1 min-w-0">
-          <h3 className="text-white font-semibold text-xs group-hover:text-blue-300 transition-colors duration-300">
-            {step.title}
-          </h3>
-        </div>
-      </motion.div>
-    </div>
+        {/* Title */}
+        <h3 className="text-white font-bold text-base">
+          {step.title}
+        </h3>
+
+        {/* Connection Arrow */}
+        {step.id < totalSteps && (
+          <div className="absolute -right-4 top-1/2 -translate-y-1/2 hidden lg:block">
+            <ArrowRight className="h-6 w-6 text-blue-400 opacity-50" />
+          </div>
+        )}
+      </div>
+    </motion.div>
   );
 };
 

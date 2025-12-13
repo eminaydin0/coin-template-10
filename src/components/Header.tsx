@@ -140,46 +140,83 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
       role="banner"
     >
       {/* Modern Background */}
-      <div className="absolute inset-0 bg-slate-900/95 backdrop-blur-xl border-b border-blue-500/20" />
+      <div 
+        className="absolute inset-0 backdrop-blur-xl border-b-2"
+        style={{
+          background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
+          borderColor: 'rgba(59, 130, 246, 0.3)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+        }}
+      />
 
       {/* Main Header */}
-      <div className={`relative transition-all duration-300 ${isCompact ? 'py-2' : 'py-3'}`}>
+      <div className={`relative transition-all duration-300 ${isCompact ? 'py-3' : 'py-4'}`}>
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between">
-            {/* Compact Logo */}
-            <Link to="/" className="flex items-center gap-2 group" aria-label="Ana sayfa">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
-                <Gamepad2 className="h-4 w-4 text-white" />
+            {/* Logo */}
+            <Link to="/" className="flex items-center gap-3 group" aria-label="Ana sayfa">
+              <div 
+                className="w-10 h-10 rounded-xl flex items-center justify-center transition-all group-hover:scale-105"
+                style={{
+                  background: 'linear-gradient(135deg, #3B82F6, #8B5CF6, #EC4899)',
+                  boxShadow: '0 4px 16px rgba(59, 130, 246, 0.4)',
+                }}
+              >
+                <Gamepad2 className="h-5 w-5 text-white" />
               </div>
-              <h1 className="text-lg font-bold text-white tracking-tight">
+              <h1 className="text-xl font-black text-white tracking-tight">
+                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 {getInfoValue('TITLE')}
+                </span>
               </h1>
             </Link>
 
-            {/* Compact Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-0.5">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-2">
               {navLinks.map(({ href, label, icon: Icon }) => {
                 // Oyunlar için dropdown
                 if (href === '/oyunlar') {
                   return (
                     <div key={href} className="relative" ref={gamesDropdownRef}>
                       <button
-                        onMouseEnter={() => setIsGamesDropdownOpen(true)}
-                        onMouseLeave={() => setIsGamesDropdownOpen(false)}
-                        className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                          isActive(href)
-                            ? 'text-white bg-blue-500/20'
-                            : 'text-gray-300 hover:text-blue-300 hover:bg-blue-500/10'
-                        }`}
+                        onMouseEnter={(e) => {
+                          setIsGamesDropdownOpen(true);
+                          if (!isActive(href)) {
+                            e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                            e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                            e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          setIsGamesDropdownOpen(false);
+                          if (!isActive(href)) {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.borderColor = 'transparent';
+                            e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                          }
+                        }}
+                        className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all"
+                        style={{
+                          color: isActive(href) ? '#fff' : 'rgba(203, 213, 225, 1)',
+                          background: isActive(href)
+                            ? 'rgba(59, 130, 246, 0.2)'
+                            : 'transparent',
+                          border: isActive(href)
+                            ? '2px solid rgba(59, 130, 246, 0.4)'
+                            : '2px solid transparent',
+                        }}
                       >
-                        <Icon className="h-3.5 w-3.5" />
+                        <Icon className="h-4 w-4" />
                         <span>{label}</span>
-                        <ChevronDown className={`h-3 w-3 transition-transform ${isGamesDropdownOpen ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`h-4 w-4 transition-transform ${isGamesDropdownOpen ? 'rotate-180' : ''}`} />
                         {isActive(href) && (
                           <motion.div
                             layoutId="activeIndicator"
-                            className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-400 rounded-full"
+                            className="absolute bottom-0 left-0 right-0 h-1 rounded-full"
+                            style={{
+                              background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
+                            }}
                             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                           />
                         )}
@@ -195,24 +232,46 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                             transition={{ duration: 0.2 }}
                             onMouseEnter={() => setIsGamesDropdownOpen(true)}
                             onMouseLeave={() => setIsGamesDropdownOpen(false)}
-                            className="absolute top-full left-0 mt-2 w-64 bg-slate-900/95 rounded-lg shadow-lg border border-blue-500/20 overflow-hidden z-50 backdrop-blur-xl"
+                            className="absolute top-full left-0 mt-3 w-72 rounded-2xl overflow-hidden z-50 backdrop-blur-xl"
+                            style={{
+                              background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
+                              border: '2px solid rgba(59, 130, 246, 0.3)',
+                              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+                            }}
                           >
-                            <div className="p-2 max-h-[400px] overflow-y-auto">
+                            <div className="p-3 max-h-[400px] overflow-y-auto">
                               <Link
                                 to="/oyunlar"
                                 onClick={() => setIsGamesDropdownOpen(false)}
-                                className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-blue-300 hover:bg-blue-500/10 transition-colors mb-2 border-b border-gray-800 pb-2"
+                                className="flex items-center gap-2.5 px-4 py-3 rounded-xl text-sm font-bold text-blue-300 transition-all mb-3 border-b-2"
+                                style={{
+                                  borderColor: 'rgba(59, 130, 246, 0.3)',
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.15)';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.background = 'transparent';
+                                }}
                               >
-                                <Zap className="h-3.5 w-3.5" />
+                                <Zap className="h-4 w-4" />
                                 <span>Tüm Kategoriler</span>
                               </Link>
-                              <div className="space-y-1">
+                              <div className="space-y-1.5">
                                 {categories.map((category) => (
                                   <Link
                                     key={category.id}
                                     to={`/oyunlar/${category.slug}`}
                                     onClick={() => setIsGamesDropdownOpen(false)}
-                                    className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                                    className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-gray-300 transition-all"
+                                    onMouseEnter={(e) => {
+                                      e.currentTarget.style.background = 'rgba(59, 130, 246, 0.15)';
+                                      e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                      e.currentTarget.style.background = 'transparent';
+                                      e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                                    }}
                                   >
                                     {category.url ? (
                                       <img
@@ -242,18 +301,40 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                 <Link
                   key={href}
                   to={href}
-                    className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                    isActive(href)
-                        ? 'text-white bg-blue-500/20'
-                        : 'text-gray-300 hover:text-blue-300 hover:bg-blue-500/10'
-                  }`}
+                  className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all"
+                  style={{
+                    color: isActive(href) ? '#fff' : 'rgba(203, 213, 225, 1)',
+                    background: isActive(href)
+                      ? 'rgba(59, 130, 246, 0.2)'
+                      : 'transparent',
+                    border: isActive(href)
+                      ? '2px solid rgba(59, 130, 246, 0.4)'
+                      : '2px solid transparent',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive(href)) {
+                      e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                      e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                      e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive(href)) {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.borderColor = 'transparent';
+                      e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                    }
+                  }}
                 >
-                    <Icon className="h-3.5 w-3.5" />
+                    <Icon className="h-4 w-4" />
                   <span>{label}</span>
                   {isActive(href) && (
                     <motion.div
                         layoutId={`activeIndicator-${href}`}
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-400 rounded-full"
+                        className="absolute bottom-0 left-0 right-0 h-1 rounded-full"
+                        style={{
+                          background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
+                        }}
                       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     />
                   )}
@@ -264,18 +345,40 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
               {isAuthenticated && (
                 <Link
                   to="/siparislerim"
-                  className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                    isActive('/siparislerim')
-                      ? 'text-white bg-blue-500/20'
-                      : 'text-gray-300 hover:text-blue-300 hover:bg-blue-500/10'
-                  }`}
+                  className="relative flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all"
+                  style={{
+                    color: isActive('/siparislerim') ? '#fff' : 'rgba(203, 213, 225, 1)',
+                    background: isActive('/siparislerim')
+                      ? 'rgba(59, 130, 246, 0.2)'
+                      : 'transparent',
+                    border: isActive('/siparislerim')
+                      ? '2px solid rgba(59, 130, 246, 0.4)'
+                      : '2px solid transparent',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive('/siparislerim')) {
+                      e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                      e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                      e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive('/siparislerim')) {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.borderColor = 'transparent';
+                      e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                    }
+                  }}
                 >
-                  <History className="h-3.5 w-3.5" />
+                  <History className="h-4 w-4" />
                   <span>Siparişlerim</span>
                   {isActive('/siparislerim') && (
                     <motion.div
                       layoutId="activeIndicatorOrders"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-400 rounded-full"
+                      className="absolute bottom-0 left-0 right-0 h-1 rounded-full"
+                      style={{
+                        background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
+                      }}
                       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     />
                   )}
@@ -283,15 +386,29 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
               )}
             </nav>
 
-            {/* Compact Desktop Actions */}
+            {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-2">
               {/* Search Button */}
               <button
                 onClick={onOpenSearch}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all"
+                style={{
+                  color: 'rgba(203, 213, 225, 1)',
+                  border: '2px solid transparent',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                  e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.borderColor = 'transparent';
+                  e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                }}
                 aria-label="Oyun ara"
               >
-                <Search className="h-3.5 w-3.5" />
+                <Search className="h-4 w-4" />
                 <span className="hidden lg:inline">Ara</span>
               </button>
 
@@ -300,12 +417,32 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                   {/* Cart Button */}
                   <Link
                     to="/sepet"
-                    className="relative flex items-center justify-center w-8 h-8 rounded-lg text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                    className="relative flex items-center justify-center w-10 h-10 rounded-xl transition-all"
+                    style={{
+                      color: 'rgba(203, 213, 225, 1)',
+                      border: '2px solid transparent',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                      e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                      e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.borderColor = 'transparent';
+                      e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                    }}
                     aria-label="Sepet"
                   >
-                    <ShoppingCart className="h-4 w-4" />
+                    <ShoppingCart className="h-5 w-5" />
                     {getItemCount() > 0 && (
-                      <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[16px] h-4 px-1 text-[10px] font-semibold text-white bg-blue-500 rounded-full">
+                      <span 
+                        className="absolute -top-1 -right-1 flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold text-white rounded-full"
+                        style={{
+                          background: 'linear-gradient(135deg, #3B82F6, #EC4899)',
+                          boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
+                        }}
+                      >
                         {getItemCount() > 99 ? '99+' : getItemCount()}
                       </span>
                     )}
@@ -315,18 +452,38 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                   <div className="relative" ref={userMenuRef}>
                     <button
                       onClick={toggleUserMenu}
-                      className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs font-medium text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                      className="flex items-center gap-2.5 px-3 py-2 rounded-xl font-semibold text-sm transition-all"
+                      style={{
+                        color: 'rgba(203, 213, 225, 1)',
+                        border: '2px solid transparent',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                        e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                        e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent';
+                        e.currentTarget.style.borderColor = 'transparent';
+                        e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                      }}
                       aria-expanded={isUserMenuOpen}
                       aria-haspopup="menu"
                     >
-                      <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center">
-                        <User className="h-3.5 w-3.5 text-white" />
+                      <div 
+                        className="w-9 h-9 rounded-xl flex items-center justify-center"
+                        style={{
+                          background: 'linear-gradient(135deg, #3B82F6, #8B5CF6, #EC4899)',
+                          boxShadow: '0 4px 16px rgba(59, 130, 246, 0.4)',
+                        }}
+                      >
+                        <User className="h-5 w-5 text-white" />
                       </div>
-                      <span className="hidden lg:inline max-w-[100px] truncate text-xs">
+                      <span className="hidden lg:inline max-w-[120px] truncate">
                         {user?.firstName || 'Kullanıcı'}
                       </span>
                       <ChevronDown
-                        className={`h-3.5 w-3.5 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`}
+                        className={`h-4 w-4 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`}
                       />
                     </button>
 
@@ -337,39 +494,64 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute right-0 mt-2 w-64 bg-slate-900/95 rounded-lg shadow-lg border border-blue-500/20 overflow-hidden z-50 backdrop-blur-xl"
+                          className="absolute right-0 mt-3 w-72 rounded-2xl overflow-hidden z-50 backdrop-blur-xl"
+                          style={{
+                            background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
+                            border: '2px solid rgba(59, 130, 246, 0.3)',
+                            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+                          }}
                           role="menu"
                         >
-                          {/* Compact User Header */}
-                          <div className="px-3 py-3 border-b border-gray-800">
-                            <div className="flex items-center gap-2.5">
-                              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center">
-                                <User className="h-5 w-5 text-white" />
+                          {/* User Header */}
+                          <div className="px-4 py-4 border-b-2" style={{ borderColor: 'rgba(59, 130, 246, 0.3)' }}>
+                            <div className="flex items-center gap-3">
+                              <div 
+                                className="w-12 h-12 rounded-xl flex items-center justify-center"
+                                style={{
+                                  background: 'linear-gradient(135deg, #3B82F6, #8B5CF6, #EC4899)',
+                                  boxShadow: '0 4px 16px rgba(59, 130, 246, 0.4)',
+                                }}
+                              >
+                                <User className="h-6 w-6 text-white" />
                               </div>
                               <div className="min-w-0 flex-1">
-                                <h3 className="text-xs font-semibold text-white truncate">
+                                <h3 className="text-sm font-bold text-white truncate">
                                   {user?.firstName} {user?.lastName}
                                 </h3>
-                                <p className="text-[10px] text-gray-400 truncate">{user?.email}</p>
+                                <p className="text-xs text-gray-400 truncate">{user?.email}</p>
                               </div>
                             </div>
                           </div>
 
-                          {/* Compact Menu Items */}
-                          <div className="p-1.5">
+                          {/* Menu Items */}
+                          <div className="p-3 space-y-1.5">
                             <Link
                               to="/profil"
                               onClick={() => setIsUserMenuOpen(false)}
-                              className="flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                              className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-300 transition-all"
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.background = 'rgba(59, 130, 246, 0.15)';
+                                e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.background = 'transparent';
+                                e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                              }}
                             >
-                              <Settings className="h-3.5 w-3.5 text-gray-400" />
+                              <Settings className="h-5 w-5" />
                               <span>Profil Ayarları</span>
                             </Link>
                             <button
                               onClick={handleLogout}
-                              className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs text-red-400 hover:bg-red-500/20 transition-colors"
+                              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-red-400 transition-all"
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.background = 'rgba(239, 68, 68, 0.15)';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.background = 'transparent';
+                              }}
                             >
-                              <LogOut className="h-3.5 w-3.5" />
+                              <LogOut className="h-5 w-5" />
                               <span>Çıkış Yap</span>
                             </button>
                           </div>
@@ -379,16 +561,42 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                   </div>
                 </>
               ) : (
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2">
                   <Link
                     to="/giris-yap"
-                    className="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                    className="px-4 py-2.5 rounded-xl font-semibold text-sm transition-all"
+                    style={{
+                      color: 'rgba(203, 213, 225, 1)',
+                      border: '2px solid transparent',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                      e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                      e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.borderColor = 'transparent';
+                      e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                    }}
                   >
                     Giriş Yap
                   </Link>
                   <Link
                     to="/kayit-ol"
-                    className="px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 transition-all shadow-sm hover:shadow-md"
+                    className="px-5 py-2.5 rounded-xl font-bold text-sm text-white transition-all"
+                    style={{
+                      background: 'linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%)',
+                      boxShadow: '0 8px 32px rgba(59, 130, 246, 0.4)',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'scale(1.05)';
+                      e.currentTarget.style.boxShadow = '0 12px 40px rgba(59, 130, 246, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'scale(1)';
+                      e.currentTarget.style.boxShadow = '0 8px 32px rgba(59, 130, 246, 0.4)';
+                    }}
                   >
                     Kayıt Ol
                   </Link>
@@ -396,25 +604,59 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
               )}
             </div>
 
-            {/* Compact Mobile Actions */}
-            <div className="md:hidden flex items-center gap-1.5">
+            {/* Mobile Actions */}
+            <div className="md:hidden flex items-center gap-2">
               <button
                 onClick={onOpenSearch}
-                className="p-1.5 rounded-lg text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                className="p-2.5 rounded-xl transition-all"
+                style={{
+                  color: 'rgba(203, 213, 225, 1)',
+                  border: '2px solid transparent',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                  e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.borderColor = 'transparent';
+                  e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                }}
                 aria-label="Ara"
               >
-                <Search className="h-4 w-4" />
+                <Search className="h-5 w-5" />
               </button>
 
               {isAuthenticated && (
                 <Link
                   to="/sepet"
-                  className="relative p-1.5 rounded-lg text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                  className="relative p-2.5 rounded-xl transition-all"
+                  style={{
+                    color: 'rgba(203, 213, 225, 1)',
+                    border: '2px solid transparent',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                    e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.borderColor = 'transparent';
+                    e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                  }}
                   aria-label="Sepet"
                 >
-                  <ShoppingCart className="h-4 w-4" />
+                  <ShoppingCart className="h-5 w-5" />
                   {getItemCount() > 0 && (
-                    <span className="absolute top-0 right-0 flex items-center justify-center min-w-[16px] h-4 px-1 text-[10px] font-semibold text-white bg-blue-500 rounded-full">
+                    <span 
+                      className="absolute top-0 right-0 flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold text-white rounded-full"
+                      style={{
+                        background: 'linear-gradient(135deg, #3B82F6, #EC4899)',
+                        boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
+                      }}
+                    >
                       {getItemCount() > 99 ? '99+' : getItemCount()}
                     </span>
                   )}
@@ -423,11 +665,25 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
 
               <button
                 onClick={toggleMenu}
-                className="p-1.5 rounded-lg text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                className="p-2.5 rounded-xl transition-all"
+                style={{
+                  color: 'rgba(203, 213, 225, 1)',
+                  border: '2px solid transparent',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                  e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.borderColor = 'transparent';
+                  e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                }}
                 aria-label="Menü"
                 aria-expanded={isMenuOpen}
               >
-                {isMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+                {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
             </div>
           </div>
@@ -443,7 +699,10 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-              className="md:hidden fixed inset-0 z-40 bg-slate-900/70 backdrop-blur-sm"
+              className="md:hidden fixed inset-0 z-40 backdrop-blur-sm"
+              style={{
+                background: 'rgba(15, 23, 42, 0.7)',
+              }}
             onClick={() => setIsMenuOpen(false)}
           >
             <motion.nav
@@ -451,46 +710,90 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 bottom-0 w-72 bg-slate-900/95 shadow-xl border-l border-blue-500/20 backdrop-blur-xl"
+              className="absolute right-0 top-0 bottom-0 w-80 backdrop-blur-xl"
+              style={{
+                background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
+                borderLeft: '2px solid rgba(59, 130, 246, 0.3)',
+                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4)',
+              }}
               onClick={(e) => e.stopPropagation()}
               aria-label="Mobile"
             >
               <div className="flex flex-col h-full">
-                {/* Compact Mobile Header */}
-                <div className="px-4 py-3 border-b border-gray-800">
+                {/* Mobile Header */}
+                <div className="px-5 py-4 border-b-2" style={{ borderColor: 'rgba(59, 130, 246, 0.3)' }}>
                   <div className="flex items-center justify-between">
-                    <h2 className="text-base font-bold text-white">Menü</h2>
+                    <h2 className="text-lg font-black text-white">
+                      <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                        Menü
+                      </span>
+                    </h2>
                     <button
                       onClick={() => setIsMenuOpen(false)}
-                      className="p-1.5 rounded-lg text-gray-400 hover:text-blue-300 hover:bg-blue-500/10"
+                      className="p-2 rounded-xl transition-all"
+                      style={{
+                        color: 'rgba(203, 213, 225, 1)',
+                        border: '2px solid transparent',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                        e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                        e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'transparent';
+                        e.currentTarget.style.borderColor = 'transparent';
+                        e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                      }}
                     >
-                      <X className="h-4 w-4" />
+                      <X className="h-5 w-5" />
                     </button>
                   </div>
                 </div>
 
-                {/* Compact Mobile Content */}
-                <div className="flex-1 overflow-y-auto px-3 py-3">
+                {/* Mobile Content */}
+                <div className="flex-1 overflow-y-auto px-4 py-4">
                   {/* Search */}
                   <button
                     onClick={() => {
                       setIsMenuOpen(false);
                       onOpenSearch();
                     }}
-                    className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-left text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors mb-3"
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all mb-4"
+                    style={{
+                      background: 'rgba(59, 130, 246, 0.1)',
+                      border: '2px solid rgba(59, 130, 246, 0.2)',
+                      color: 'rgba(203, 213, 225, 1)',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(59, 130, 246, 0.15)';
+                      e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                      e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                      e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                      e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                    }}
                   >
-                    <div className="w-9 h-9 rounded-lg bg-gray-800 flex items-center justify-center">
-                      <Search className="h-4 w-4 text-gray-300" />
+                    <div 
+                      className="w-11 h-11 rounded-xl flex items-center justify-center"
+                      style={{
+                        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(236, 72, 153, 0.3))',
+                        border: '1px solid rgba(96, 165, 250, 0.4)',
+                      }}
+                    >
+                      <Search className="h-5 w-5 text-blue-300" />
                     </div>
                     <div className="flex-1">
-                      <div className="text-xs font-medium text-white">Oyun Ara</div>
-                      <div className="text-[10px] text-gray-400">Ctrl+K</div>
+                      <div className="text-sm font-bold text-white">Oyun Ara</div>
+                      <div className="text-xs text-gray-400">Ctrl+K</div>
                     </div>
-                    <Keyboard className="h-3.5 w-3.5 text-gray-500" />
+                    <Keyboard className="h-4 w-4 text-gray-500" />
                   </button>
 
                   {/* Navigation Links */}
-                  <div className="space-y-1 mb-3">
+                  <div className="space-y-2 mb-4">
                     {navLinks.map(({ href, label, icon: Icon }) => {
                       // Oyunlar için dropdown
                       if (href === '/oyunlar') {
@@ -498,17 +801,32 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                           <div key={href}>
                             <button
                               onClick={() => setIsMobileGamesOpen(!isMobileGamesOpen)}
-                              className={`w-full flex items-center justify-between gap-2.5 px-3 py-2.5 rounded-lg text-xs font-medium transition-colors ${
-                                isActive(href)
-                                  ? 'text-blue-300 bg-blue-500/20'
-                                  : 'text-gray-300 hover:text-blue-300 hover:bg-blue-500/10'
-                              }`}
+                              className="w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all"
+                              style={{
+                                color: isActive(href) ? 'rgba(147, 197, 253, 1)' : 'rgba(203, 213, 225, 1)',
+                                background: isActive(href) ? 'rgba(59, 130, 246, 0.2)' : 'transparent',
+                                border: isActive(href) ? '2px solid rgba(59, 130, 246, 0.4)' : '2px solid transparent',
+                              }}
+                              onMouseEnter={(e) => {
+                                if (!isActive(href)) {
+                                  e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                                  e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                                  e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                                }
+                              }}
+                              onMouseLeave={(e) => {
+                                if (!isActive(href)) {
+                                  e.currentTarget.style.background = 'transparent';
+                                  e.currentTarget.style.borderColor = 'transparent';
+                                  e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                                }
+                              }}
                             >
-                              <div className="flex items-center gap-2.5">
-                                <Icon className="h-4 w-4" />
+                              <div className="flex items-center gap-3">
+                                <Icon className="h-5 w-5" />
                                 <span>{label}</span>
                               </div>
-                              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isMobileGamesOpen ? 'rotate-180' : ''}`} />
+                              <ChevronDown className={`h-4 w-4 transition-transform ${isMobileGamesOpen ? 'rotate-180' : ''}`} />
                             </button>
                             <AnimatePresence>
                               {isMobileGamesOpen && categories.length > 0 && (
@@ -519,16 +837,22 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                                   transition={{ duration: 0.2 }}
                                   className="overflow-hidden"
                                 >
-                                  <div className="pl-6 pr-3 py-2 space-y-1">
+                                  <div className="pl-6 pr-3 py-2 space-y-1.5">
                                     <Link
                                       to="/oyunlar"
                                       onClick={() => {
                                         setIsMenuOpen(false);
                                         setIsMobileGamesOpen(false);
                                       }}
-                                      className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-semibold text-blue-300 hover:bg-blue-500/10 transition-colors"
+                                      className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-blue-300 transition-all"
+                                      onMouseEnter={(e) => {
+                                        e.currentTarget.style.background = 'rgba(59, 130, 246, 0.15)';
+                                      }}
+                                      onMouseLeave={(e) => {
+                                        e.currentTarget.style.background = 'transparent';
+                                      }}
                                     >
-                                      <Zap className="h-3.5 w-3.5" />
+                                      <Zap className="h-4 w-4" />
                                       <span>Tüm Kategoriler</span>
                                     </Link>
                                     {categories.map((category) => (
@@ -539,7 +863,15 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                                           setIsMenuOpen(false);
                                           setIsMobileGamesOpen(false);
                                         }}
-                                        className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                                        className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-gray-300 transition-all"
+                                        onMouseEnter={(e) => {
+                                          e.currentTarget.style.background = 'rgba(59, 130, 246, 0.15)';
+                                          e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                          e.currentTarget.style.background = 'transparent';
+                                          e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                                        }}
                                       >
                                         {category.url ? (
                                           <img
@@ -569,13 +901,28 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                         key={href}
                         to={href}
                         onClick={() => setIsMenuOpen(false)}
-                          className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-xs font-medium transition-colors ${
-                          isActive(href)
-                              ? 'text-blue-300 bg-blue-500/20'
-                              : 'text-gray-300 hover:text-blue-300 hover:bg-blue-500/10'
-                        }`}
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all"
+                        style={{
+                          color: isActive(href) ? 'rgba(147, 197, 253, 1)' : 'rgba(203, 213, 225, 1)',
+                          background: isActive(href) ? 'rgba(59, 130, 246, 0.2)' : 'transparent',
+                          border: isActive(href) ? '2px solid rgba(59, 130, 246, 0.4)' : '2px solid transparent',
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isActive(href)) {
+                            e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                            e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                            e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isActive(href)) {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.borderColor = 'transparent';
+                            e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                          }
+                        }}
                       >
-                          <Icon className="h-4 w-4" />
+                          <Icon className="h-5 w-5" />
                         <span>{label}</span>
                       </Link>
                       );
@@ -585,13 +932,28 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                       <Link
                         to="/siparislerim"
                         onClick={() => setIsMenuOpen(false)}
-                        className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-xs font-medium transition-colors ${
-                          isActive('/siparislerim')
-                            ? 'text-blue-300 bg-blue-500/20'
-                            : 'text-gray-300 hover:text-blue-300 hover:bg-blue-500/10'
-                        }`}
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all"
+                        style={{
+                          color: isActive('/siparislerim') ? 'rgba(147, 197, 253, 1)' : 'rgba(203, 213, 225, 1)',
+                          background: isActive('/siparislerim') ? 'rgba(59, 130, 246, 0.2)' : 'transparent',
+                          border: isActive('/siparislerim') ? '2px solid rgba(59, 130, 246, 0.4)' : '2px solid transparent',
+                        }}
+                        onMouseEnter={(e) => {
+                          if (!isActive('/siparislerim')) {
+                            e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                            e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                            e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if (!isActive('/siparislerim')) {
+                            e.currentTarget.style.background = 'transparent';
+                            e.currentTarget.style.borderColor = 'transparent';
+                            e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                          }
+                        }}
                       >
-                        <History className="h-4 w-4" />
+                        <History className="h-5 w-5" />
                         <span>Siparişlerim</span>
                       </Link>
                     )}
@@ -600,12 +962,28 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
                       <Link
                         to="/sepet"
                         onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-xs font-medium text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-300 transition-all"
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                          e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                          e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'transparent';
+                          e.currentTarget.style.borderColor = 'transparent';
+                          e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                        }}
                       >
-                        <ShoppingCart className="h-4 w-4" />
+                        <ShoppingCart className="h-5 w-5" />
                         <span>Sepet</span>
                         {getItemCount() > 0 && (
-                          <span className="ml-auto flex items-center justify-center min-w-[18px] h-4 px-1.5 text-[10px] font-semibold text-white bg-blue-500 rounded-full">
+                          <span 
+                            className="ml-auto flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold text-white rounded-full"
+                            style={{
+                              background: 'linear-gradient(135deg, #3B82F6, #EC4899)',
+                              boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
+                            }}
+                          >
                             {getItemCount() > 99 ? '99+' : getItemCount()}
                           </span>
                         )}
@@ -615,49 +993,95 @@ const Header = ({ onOpenSearch, hideHeader = false }: HeaderProps) => {
 
                   {/* User Section */}
                   {isAuthenticated ? (
-                    <div className="pt-3 border-t border-gray-800 space-y-1">
-                      <div className="px-3 py-2.5 mb-2">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center">
-                            <User className="h-4 w-4 text-white" />
+                    <div className="pt-4 border-t-2 space-y-2" style={{ borderColor: 'rgba(59, 130, 246, 0.3)' }}>
+                      <div className="px-4 py-3 mb-3 rounded-xl" style={{ background: 'rgba(59, 130, 246, 0.1)', border: '2px solid rgba(59, 130, 246, 0.2)' }}>
+                        <div className="flex items-center gap-3">
+                          <div 
+                            className="w-11 h-11 rounded-xl flex items-center justify-center"
+                            style={{
+                              background: 'linear-gradient(135deg, #3B82F6, #8B5CF6, #EC4899)',
+                              boxShadow: '0 4px 16px rgba(59, 130, 246, 0.4)',
+                            }}
+                          >
+                            <User className="h-6 w-6 text-white" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <div className="text-xs font-semibold text-white truncate">
+                            <div className="text-sm font-bold text-white truncate">
                               {user?.firstName} {user?.lastName}
                             </div>
-                            <div className="text-[10px] text-gray-400 truncate">{user?.email}</div>
+                            <div className="text-xs text-gray-400 truncate">{user?.email}</div>
                           </div>
                         </div>
                       </div>
                       <Link
                         to="/profil"
                         onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-xs font-medium text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-gray-300 transition-all"
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = 'rgba(59, 130, 246, 0.15)';
+                          e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'transparent';
+                          e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                        }}
                       >
-                        <Settings className="h-4 w-4" />
+                        <Settings className="h-5 w-5" />
                         <span>Profil Ayarları</span>
                       </Link>
                       <button
                         onClick={handleLogout}
-                        className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-xs font-medium text-red-400 hover:bg-red-500/20 transition-colors"
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-red-400 transition-all"
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = 'rgba(239, 68, 68, 0.15)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'transparent';
+                        }}
                       >
-                        <LogOut className="h-4 w-4" />
+                        <LogOut className="h-5 w-5" />
                         <span>Çıkış Yap</span>
                       </button>
                     </div>
                   ) : (
-                    <div className="pt-3 border-t border-gray-800 space-y-1.5">
+                    <div className="pt-4 border-t-2 space-y-2" style={{ borderColor: 'rgba(59, 130, 246, 0.3)' }}>
                       <Link
                         to="/giris-yap"
                         onClick={() => setIsMenuOpen(false)}
-                        className="block w-full px-3 py-2.5 rounded-lg text-xs font-medium text-center text-gray-300 hover:text-blue-300 hover:bg-blue-500/10 transition-colors"
+                        className="block w-full px-4 py-3 rounded-xl text-sm font-semibold text-center transition-all"
+                        style={{
+                          color: 'rgba(203, 213, 225, 1)',
+                          border: '2px solid transparent',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
+                          e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.2)';
+                          e.currentTarget.style.color = 'rgba(147, 197, 253, 1)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = 'transparent';
+                          e.currentTarget.style.borderColor = 'transparent';
+                          e.currentTarget.style.color = 'rgba(203, 213, 225, 1)';
+                        }}
                       >
                         Giriş Yap
                       </Link>
                       <Link
                         to="/kayit-ol"
                         onClick={() => setIsMenuOpen(false)}
-                        className="block w-full px-3 py-2.5 rounded-lg text-xs font-semibold text-center text-white bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 transition-all"
+                        className="block w-full px-4 py-3 rounded-xl text-sm font-bold text-center text-white transition-all"
+                        style={{
+                          background: 'linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%)',
+                          boxShadow: '0 8px 32px rgba(59, 130, 246, 0.4)',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'scale(1.02)';
+                          e.currentTarget.style.boxShadow = '0 12px 40px rgba(59, 130, 246, 0.5)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
+                          e.currentTarget.style.boxShadow = '0 8px 32px rgba(59, 130, 246, 0.4)';
+                        }}
                       >
                         Kayıt Ol
                       </Link>
