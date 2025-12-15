@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { 
   CreditCard, 
   ShoppingCart, 
   Download, 
   CheckCircle, 
   Gamepad2,
-  Home,
-  ChevronRight,
   ArrowRight,
   BookOpen
 } from 'lucide-react';
@@ -115,66 +112,161 @@ const RehberPage = () => {
       <CommonBackground />
 
       <div className="w-full relative z-10">
-        {/* Header Section - CategoriesPage Stili */}
-        <div className="w-full mb-8 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="rounded-2xl backdrop-blur-xl bg-black/20 border border-white/10 p-6 shadow-2xl">
-              {/* Breadcrumb */}
-              <div className="flex items-center justify-center sm:justify-start gap-1.5 text-xs mb-4">
-                <Link 
-                  to="/" 
-                  className="flex items-center gap-1 text-gray-400 hover:text-purple-300 transition-colors"
-                >
-                  <Home className="h-3.5 w-3.5" />
-                  <span>Ana Sayfa</span>
-                </Link>
-                <ChevronRight className="h-3.5 w-3.5 text-gray-600" />
-                <span className="text-gray-300 font-medium">Rehber</span>
-              </div>
+        {/* Ultra Premium Hero Section */}
+        <div className="w-full mb-8 px-4 sm:px-6 lg:px-8 pt-8 pb-6 relative">
+          {/* Animated Background Elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <motion.div
+              className="absolute top-0 left-1/4 w-96 h-96 rounded-full opacity-30 blur-3xl"
+              style={{
+                background: 'radial-gradient(circle, #3B82F6 0%, transparent 70%)',
+              }}
+              animate={{
+                y: [0, -30, 0],
+                scale: [1, 1.1, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute top-20 right-1/4 w-80 h-80 rounded-full opacity-30 blur-3xl"
+              style={{
+                background: 'radial-gradient(circle, #8B5CF6 0%, transparent 70%)',
+              }}
+              animate={{
+                y: [0, 30, 0],
+                scale: [1.1, 1, 1.1],
+                opacity: [0.5, 0.3, 0.5],
+              }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
 
-              {/* Title Section */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div className="flex items-center gap-2">
-                  <div 
-                    className="w-7 h-7 rounded-lg flex items-center justify-center"
-                    style={{
-                      background: 'rgba(139, 92, 246, 0.15)',
-                      border: '1px solid rgba(168, 85, 247, 0.3)',
-                    }}
-                  >
-                    <BookOpen className="h-4 w-4 text-purple-300" />
-                  </div>
-                  <h1 className="text-xl sm:text-2xl font-bold text-white">
-                    <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
-                      Rehber
-                    </span>
-                  </h1>
-                </div>
-
+          <div className="max-w-7xl mx-auto relative">
+            {/* Epic Title Section - Modern & Minimal */}
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="flex-1"
+              >
                 {/* Badge */}
-                <div className="flex items-center gap-1.5">
-                <span
-                    className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                <motion.div
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.2 }}
                   style={{
-                      background: 'rgba(139, 92, 246, 0.15)',
-                      border: '1px solid rgba(168, 85, 247, 0.3)',
-                      color: 'rgba(168, 85, 247, 0.95)',
-                    backdropFilter: 'blur(8px)',
+                    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15))',
+                    border: '1px solid rgba(59, 130, 246, 0.3)',
                   }}
                 >
-                  5 ADIM
-                </span>
-              </div>
+                  <BookOpen className="h-4 w-4 text-blue-400" />
+                  <span className="text-blue-400 text-xs font-bold uppercase tracking-wider">
+                    Kullanım Rehberi
+                  </span>
+                </motion.div>
+
+                {/* Main Title */}
+                <h1 className="text-5xl lg:text-7xl font-black tracking-tight leading-none mb-4">
+                  <motion.span
+                    className="block bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    Rehber
+                  </motion.span>
+                </h1>
+                
+                <motion.p
+                  className="text-gray-400 text-lg lg:text-xl max-w-2xl leading-relaxed"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  Sipariş verme sürecini 5 kolay adımda öğrenin ve hemen alışverişe başlayın
+                </motion.p>
+              </motion.div>
+
+              {/* Premium Stats Panel */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                {/* Main Stats Card */}
+                <div
+                  className="px-8 py-5 rounded-3xl backdrop-blur-xl relative overflow-hidden border-2"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
+                    border: '2px solid rgba(59, 130, 246, 0.3)',
+                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+                  }}
+                >
+                  {/* Diagonal Accent */}
+                  <div 
+                    className="absolute top-0 right-0 w-32 h-32 opacity-20"
+                    style={{
+                      background: 'linear-gradient(135deg, transparent, rgba(96, 165, 250, 0.4))',
+                      clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+                    }}
+                  />
+
+                  {/* Animated Top Border */}
+                  <motion.div
+                    className="absolute top-0 left-0 right-0 h-1"
+                    style={{
+                      background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
+                    }}
+                    animate={{
+                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  />
+                  
+                  <div className="relative z-10 flex items-center justify-between">
+                    <div>
+                      <span className="text-xs text-gray-400 uppercase tracking-wider font-semibold block mb-1.5">
+                        Toplam Adım
+                      </span>
+                      <span className="text-5xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                        5
+                      </span>
+                    </div>
+                    <motion.div
+                      animate={{
+                        rotate: [0, 10, -10, 0],
+                      }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <CheckCircle className="h-12 w-12 text-blue-400/40" />
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
-            </div>
+
+            {/* Decorative Divider */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="h-1 rounded-full mb-4"
+              style={{
+                background: 'linear-gradient(90deg, transparent, #3B82F6, #8B5CF6, #EC4899, transparent)',
+                boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)',
+              }}
+            />
           </div>
         </div>
 
         {/* Steps Section */}
-        <section className="relative py-8">
+        <section className="relative py-4">
           <div className="px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {steps.map((step) => (
                   <StepCard key={step.id} step={step} />
                 ))}
@@ -217,43 +309,45 @@ const StepCard = ({ step }: StepCardProps) => {
     >
       <motion.div
         whileHover={{ y: -4 }}
-        className="relative rounded-xl border overflow-hidden transition-all duration-300 h-full flex flex-col"
+        className="relative rounded-3xl border-2 overflow-hidden transition-all duration-300 h-full flex flex-col"
         style={{
-          background: isHovered
-            ? 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.05))'
-            : 'rgba(0, 0, 0, 0.6)',
-          border: isHovered
-            ? '1.5px solid rgba(168, 85, 247, 0.5)'
-            : '1px solid rgba(168, 85, 247, 0.2)',
-          boxShadow: isHovered
-            ? '0 8px 24px rgba(139, 92, 246, 0.25), 0 0 40px rgba(139, 92, 246, 0.1)'
-            : '0 2px 8px rgba(0, 0, 0, 0.3)',
-          backdropFilter: 'blur(12px)',
+          background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
+          border: '2px solid rgba(59, 130, 246, 0.3)',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+          backdropFilter: 'blur(20px)',
         }}
       >
-        {/* Shine Effect */}
-        {isHovered && (
-          <motion.div
-            className="absolute inset-0 z-10"
-            initial={{ x: '-100%' }}
-            animate={{ x: '100%' }}
-            transition={{ duration: 0.6 }}
-            style={{
-              background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent)',
-            }}
-          />
-        )}
+        {/* Diagonal Accent */}
+        <div 
+          className="absolute top-0 right-0 w-32 h-32 opacity-20"
+          style={{
+            background: 'linear-gradient(135deg, transparent, rgba(96, 165, 250, 0.4))',
+            clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+          }}
+        />
 
-        <div className="p-3 flex-1 flex flex-col">
+        {/* Animated Top Border */}
+        <motion.div
+          className="absolute top-0 left-0 right-0 h-1"
+          style={{
+            background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
+          }}
+          animate={{
+            backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+          }}
+          transition={{ duration: 3, repeat: Infinity }}
+        />
+
+        <div className="p-5 sm:p-6 flex-1 flex flex-col relative z-10">
           {/* Header */}
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-3 mb-4">
             {/* Step Number Badge */}
             <div 
-              className="w-7 h-7 rounded-lg flex items-center justify-center text-white font-bold text-xs flex-shrink-0"
+              className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-black text-base flex-shrink-0"
               style={{
-                background: 'rgba(139, 92, 246, 0.2)',
-                border: '1px solid rgba(168, 85, 247, 0.35)',
-                backdropFilter: 'blur(8px)',
+                background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+                border: '2px solid rgba(255, 255, 255, 0.3)',
+                boxShadow: '0 4px 12px rgba(59, 130, 246, 0.4)',
               }}
             >
               {step.id}
@@ -261,49 +355,49 @@ const StepCard = ({ step }: StepCardProps) => {
             
             {/* Icon */}
             <div 
-              className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+              className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
               style={{
-                background: 'rgba(139, 92, 246, 0.15)',
-                border: '1px solid rgba(168, 85, 247, 0.3)',
+                background: 'rgba(59, 130, 246, 0.15)',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
               }}
             >
-              <Icon className="h-4 w-4 text-purple-300" />
+              <Icon className="h-5 w-5 text-blue-400" />
             </div>
           </div>
 
           {/* Content */}
-          <div className="flex-1 flex flex-col space-y-2">
+          <div className="flex-1 flex flex-col space-y-3">
             {/* Title & Description */}
             <div>
-              <h3 className="text-white font-bold text-sm mb-1.5 line-clamp-2 leading-tight group-hover:text-purple-300 transition-colors">
+              <h3 className="text-white font-black text-lg mb-2 leading-tight">
                 {step.title}
               </h3>
-              <p className="text-gray-400 text-xs leading-relaxed line-clamp-2">
+              <p className="text-gray-300 text-sm leading-relaxed">
                 {step.description}
               </p>
             </div>
 
             {/* Details List */}
-            <div className="space-y-1.5 flex-1">
+            <div className="space-y-2 flex-1">
               {step.details.map((detail, index) => (
-                <div key={index} className="flex items-start gap-1.5">
-                  <div className="w-1 h-1 bg-purple-400 rounded-full mt-1.5 flex-shrink-0"></div>
-                  <span className="text-gray-400 text-[10px] leading-relaxed">{detail}</span>
+                <div key={index} className="flex items-start gap-2">
+                  <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mt-2 flex-shrink-0"></div>
+                  <span className="text-gray-300 text-sm leading-relaxed">{detail}</span>
                 </div>
               ))}
             </div>
 
             {/* Action Button */}
-            <div className="mt-auto pt-2 border-t" style={{ borderColor: 'rgba(75,85,99,0.2)' }}>
+            <div className="mt-auto pt-3 border-t" style={{ borderColor: 'rgba(59, 130, 246, 0.2)' }}>
               <motion.div
                 className="flex items-center justify-between"
-                whileHover={{ x: 2 }}
+                whileHover={{ x: 4 }}
                 transition={{ duration: 0.2 }}
               >
-                <span className="text-[10px] font-medium text-gray-400">Adım {step.id}</span>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-semibold text-purple-300">Detay</span>
-                  <ArrowRight className="h-3.5 w-3.5 text-purple-300" />
+                <span className="text-xs font-medium text-gray-400">Adım {step.id}</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold text-blue-400">Detay</span>
+                  <ArrowRight className="h-4 w-4 text-blue-400" />
                 </div>
               </motion.div>
             </div>

@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Gamepad2, 
-  ArrowRight,
-  Home,
   ChevronRight,
+  Sparkles,
   Layers
 } from 'lucide-react';
 import { getCategories } from '../services/api';
@@ -60,102 +59,245 @@ const CategoriesPage = () => {
   return (
     <div className="min-h-screen pt-20 relative overflow-hidden gaming-scrollbar">
       <SEOHead />
-      
-      {/* Common Background */}
       <CommonBackground />
 
       <div className="w-full relative z-10">
-        {/* Header Section - Simple & Clean */}
-        <div className="w-full mb-8 px-4 sm:px-6 lg:px-8 pt-8">
-          <div className="max-w-7xl mx-auto">
-            {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-sm mb-4">
-              <Link 
-                to="/" 
-                className="flex items-center gap-1.5 text-gray-400 hover:text-blue-300 transition-colors"
-              >
-                <Home className="h-4 w-4" />
-                <span>Ana Sayfa</span>
-              </Link>
-              <ChevronRight className="h-4 w-4 text-gray-600" />
-              <span className="text-white font-medium">Kategoriler</span>
-            </div>
+        {/* Ultra Premium Hero Section */}
+        <div className="w-full mb-8 px-4 sm:px-6 lg:px-8 pt-8 pb-6 relative">
+          {/* Animated Background Elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <motion.div
+              className="absolute top-0 left-1/4 w-96 h-96 rounded-full opacity-30 blur-3xl"
+              style={{
+                background: 'radial-gradient(circle, #3B82F6 0%, transparent 70%)',
+              }}
+              animate={{
+                y: [0, -30, 0],
+                scale: [1, 1.1, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute top-20 right-1/4 w-80 h-80 rounded-full opacity-30 blur-3xl"
+              style={{
+                background: 'radial-gradient(circle, #8B5CF6 0%, transparent 70%)',
+              }}
+              animate={{
+                y: [0, 30, 0],
+                scale: [1.1, 1, 1.1],
+                opacity: [0.5, 0.3, 0.5],
+              }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute bottom-0 left-1/2 w-72 h-72 rounded-full opacity-20 blur-3xl"
+              style={{
+                background: 'radial-gradient(circle, #EC4899 0%, transparent 70%)',
+              }}
+              animate={{
+                x: [-30, 30, -30],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
 
-            {/* Title */}
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-4xl font-black text-white mb-2">
-                  <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                    Kategoriler
-                  </span>
-                </h1>
-                <p className="text-gray-400">Tüm oyun kategorilerini keşfedin</p>
-              </div>
-              
-              <div className="hidden sm:block">
-                <div
-                  className="px-4 py-2 rounded-xl"
+          <div className="max-w-7xl mx-auto relative">
+            {/* Epic Title Section - Modern & Minimal */}
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="flex-1"
+              >
+                {/* Badge */}
+                <motion.div
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.2 }}
                   style={{
-                    background: 'rgba(59, 130, 246, 0.1)',
+                    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15))',
                     border: '1px solid rgba(59, 130, 246, 0.3)',
                   }}
                 >
-                  <span className="text-sm font-bold text-blue-300">
-                    {categories.length} Kategori
+                  <Sparkles className="h-4 w-4 text-yellow-400" />
+                  <span className="text-blue-400 text-xs font-bold uppercase tracking-wider">
+                    Oyun Dünyası
                   </span>
+                </motion.div>
+
+                {/* Main Title */}
+                <h1 className="text-5xl lg:text-7xl font-black tracking-tight leading-none mb-4">
+                  <motion.span
+                    className="block bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    Kategoriler
+                  </motion.span>
+                </h1>
+                
+                <motion.p
+                  className="text-gray-400 text-lg lg:text-xl max-w-2xl leading-relaxed"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  En sevdiğin oyun türünü keşfet, maceraya atıl ve efsanevi deneyimler yaşa
+                </motion.p>
+              </motion.div>
+
+              {/* Premium Stats Panel */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                {/* Main Stats Card */}
+                <div
+                  className="px-8 py-5 rounded-3xl backdrop-blur-xl relative overflow-hidden border-2"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
+                    border: '2px solid rgba(59, 130, 246, 0.3)',
+                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+                  }}
+                >
+                  {/* Diagonal Accent */}
+                  <div 
+                    className="absolute top-0 right-0 w-32 h-32 opacity-20"
+                    style={{
+                      background: 'linear-gradient(135deg, transparent, rgba(96, 165, 250, 0.4))',
+                      clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+                    }}
+                  />
+
+                  {/* Animated Top Border */}
+                  <motion.div
+                    className="absolute top-0 left-0 right-0 h-1"
+                    style={{
+                      background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
+                    }}
+                    animate={{
+                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  />
+                  
+                  <div className="relative z-10 flex items-center justify-between">
+                    <div>
+                      <span className="text-xs text-gray-400 uppercase tracking-wider font-semibold block mb-1.5">
+                        Toplam Kategori
+                      </span>
+                      <span className="text-5xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                        {categories.length}
+                      </span>
+                    </div>
+                    <motion.div
+                      animate={{
+                        rotate: [0, 10, -10, 0],
+                      }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <Layers className="h-12 w-12 text-blue-400/40" />
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
+
+            {/* Decorative Divider */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="h-1 rounded-full mb-4"
+              style={{
+                background: 'linear-gradient(90deg, transparent, #3B82F6, #8B5CF6, #EC4899, transparent)',
+                boxShadow: '0 0 20px rgba(59, 130, 246, 0.5)',
+              }}
+            />
           </div>
         </div>
 
-        {/* Categories Grid */}
+        {/* Categories Section */}
         <section className="relative py-4">
           <div className="px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
               {categories.length === 0 ? (
-                <div 
-                  className="text-center py-16 rounded-2xl border"
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-16 rounded-3xl border-2 backdrop-blur-xl relative overflow-hidden"
                   style={{
-                    background: 'rgba(0, 0, 0, 0.6)',
-                    border: '1px solid rgba(168, 85, 247, 0.2)',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-                    backdropFilter: 'blur(12px)',
+                    background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
+                    border: '2px solid rgba(59, 130, 246, 0.3)',
+                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.1)',
                   }}
                 >
-                  <Gamepad2 className="h-12 w-12 text-purple-300/50 mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    Kategori bulunamadı
-                  </h3>
-                  <p className="text-gray-400 text-sm">Yakında yeni kategoriler eklenecektir.</p>
-                </div>
+                  {/* Diagonal Accent */}
+                  <div 
+                    className="absolute top-0 right-0 w-64 h-64 opacity-20"
+                    style={{
+                      background: 'linear-gradient(135deg, transparent, rgba(96, 165, 250, 0.4))',
+                      clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+                    }}
+                  />
+
+                  {/* Animated Top Border */}
+                  <motion.div
+                    className="absolute top-0 left-0 right-0 h-1"
+                    style={{
+                      background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
+                    }}
+                    animate={{
+                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  />
+
+                  <div className="relative z-10">
+                    <Gamepad2 className="h-16 w-16 text-blue-400/50 mx-auto mb-6" />
+                    <h3 className="text-2xl font-black text-white mb-3">
+                      Kategori bulunamadı
+                    </h3>
+                    <p className="text-gray-400">Yakında yeni kategoriler eklenecektir.</p>
+                  </div>
+                </motion.div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex flex-col gap-4"
+                >
                   {categories.map((category, index) => (
-                    <CategoryCard key={category.id} category={category} index={index} />
+                    <ListView key={category.id} category={category} index={index} />
                   ))}
-                </div>
+                </motion.div>
               )}
             </div>
           </div>
         </section>
 
-        {/* Call to Action Section */}
         <CallToActionSection />
       </div>
     </div>
   );
 };
 
-const CategoryCard = ({ category, index }: { category: Category; index: number }) => {
+// List View Component
+const ListView = ({ category, index }: { category: Category; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay: index * 0.05 }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
     >
       <Link 
         to={`/oyunlar/${category.slug}`}
@@ -164,25 +306,30 @@ const CategoryCard = ({ category, index }: { category: Category; index: number }
         onMouseLeave={() => setIsHovered(false)}
       >
         <motion.div
-          whileHover={{ scale: 1.03, y: -8 }}
-          transition={{ type: "spring", stiffness: 300 }}
-          className="relative rounded-3xl overflow-hidden h-full"
+          className="relative rounded-3xl overflow-hidden border-2"
           style={{
             background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
             border: '2px solid rgba(59, 130, 246, 0.3)',
-            boxShadow: isHovered
-              ? '0 30px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.4)'
-              : '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.1)',
             backdropFilter: 'blur(20px)',
           }}
+          whileHover={{ y: -4 }}
+          transition={{ type: "spring", stiffness: 300, damping: 25 }}
         >
-          {/* Animated Gradient Border */}
-          <motion.div
-            className="absolute inset-0 rounded-3xl z-0"
+          {/* Diagonal Accent */}
+          <div 
+            className="absolute top-0 right-0 w-64 h-64 opacity-20"
             style={{
-              background: 'linear-gradient(135deg, #3B82F6, #8B5CF6, #EC4899, #3B82F6)',
-              backgroundSize: '300% 300%',
-              opacity: isHovered ? 0.3 : 0,
+              background: 'linear-gradient(135deg, transparent, rgba(96, 165, 250, 0.4))',
+              clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+            }}
+          />
+
+          {/* Animated Top Border */}
+          <motion.div
+            className="absolute top-0 left-0 right-0 h-1"
+            style={{
+              background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
             }}
             animate={{
               backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
@@ -190,111 +337,118 @@ const CategoryCard = ({ category, index }: { category: Category; index: number }
             transition={{ duration: 3, repeat: Infinity }}
           />
 
-          {/* Image Section - Larger */}
-          <div className="relative h-64 overflow-hidden">
-            {category.url && !imageError ? (
-              <motion.img
-                src={category.url}
-                alt={category.name}
-                className="w-full h-full object-cover"
-                onError={() => setImageError(true)}
-                loading="lazy"
-                animate={{ 
-                  scale: isHovered ? 1.2 : 1,
-                  rotate: isHovered ? 2 : 0,
-                }}
-                transition={{ duration: 0.6 }}
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-blue-500/30 via-purple-500/20 to-pink-500/20 flex items-center justify-center">
-                <Gamepad2 className="h-16 w-16 text-blue-300" />
+          {/* Glow Bar */}
+          <motion.div
+            className="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-3xl"
+            style={{
+              background: 'linear-gradient(180deg, #3B82F6, #8B5CF6, #EC4899)',
+            }}
+            animate={{ 
+              scaleY: isHovered ? 1 : 0,
+              opacity: isHovered ? 1 : 0,
+            }}
+            transition={{ duration: 0.3 }}
+          />
+
+          <div className="flex items-center gap-6 p-6 sm:p-7 relative z-10">
+            {/* Image Thumbnail */}
+            <div className="relative flex-shrink-0">
+              <div className="w-40 h-40 rounded-3xl overflow-hidden relative">
+                {category.url && !imageError ? (
+                  <motion.img
+                    src={category.url}
+                    alt={category.name}
+                    className="w-full h-full object-cover"
+                    onError={() => setImageError(true)}
+                    loading="lazy"
+                    animate={{ scale: isHovered ? 1.05 : 1 }}
+                    transition={{ duration: 0.4 }}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-blue-500/30 via-purple-500/20 to-pink-500/30 flex items-center justify-center">
+                    <Gamepad2 className="h-16 w-16 text-blue-400/70" />
+                  </div>
+                )}
               </div>
-            )}
-
-            {/* Gradient Overlay */}
-            <div 
-              className="absolute inset-0"
-              style={{
-                background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.95) 100%)',
-              }}
-            />
-
-            {/* Floating Badge */}
-            {category.productCount && category.productCount > 0 && (
-              <motion.div
-                className="absolute top-4 right-4 z-20"
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.3 + index * 0.05, type: "spring" }}
-              >
-                <div
-                  className="rounded-2xl px-4 py-2 flex items-center gap-2"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(139, 92, 246, 0.4))',
-                    border: '2px solid rgba(96, 165, 250, 0.6)',
-                    backdropFilter: 'blur(16px)',
-                    boxShadow: '0 8px 32px rgba(59, 130, 246, 0.4)',
-                  }}
-                >
-                  <Gamepad2 className="h-4 w-4 text-blue-300" />
-                  <span className="text-white text-sm font-black">{category.productCount}+</span>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Category Name Overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-              <motion.h3 
-                className="text-white font-black text-2xl mb-2 leading-tight"
-                animate={{
-                  y: isHovered ? -4 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                {category.name}
-              </motion.h3>
               
-              {category.description && (
-                <motion.p 
-                  className="text-gray-300 text-sm line-clamp-2 leading-relaxed"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{
-                    opacity: isHovered ? 1 : 0,
-                    height: isHovered ? 'auto' : 0,
-                  }}
-                  transition={{ duration: 0.3 }}
+              {/* Corner Badge */}
+              {category.productCount && category.productCount > 0 && (
+                <motion.div
+                  className="absolute -top-3 -right-3"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.3 + index * 0.08, type: "spring" }}
                 >
-                  {category.description}
-                </motion.p>
+                  <div
+                    className="w-14 h-14 rounded-2xl backdrop-blur-xl flex items-center justify-center"
+                    style={{
+                      background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+                      border: '2px solid rgba(255, 255, 255, 0.3)',
+                      boxShadow: '0 8px 24px rgba(59, 130, 246, 0.6)',
+                    }}
+                  >
+                    <span className="text-white text-lg font-black">{category.productCount}</span>
+                  </div>
+                </motion.div>
               )}
             </div>
-          </div>
 
-          {/* Action Bar */}
-          <div 
-            className="relative z-10 px-6 py-4"
-            style={{
-              background: 'rgba(0, 0, 0, 0.3)',
-              borderTop: '1px solid rgba(59, 130, 246, 0.2)',
-            }}
-          >
+            {/* Content */}
+            <div className="flex-1 min-w-0">
+              <h3 className="text-3xl font-black text-white mb-3 leading-tight">
+                {category.name}
+              </h3>
+              
+              {category.description && (
+                <p className="text-gray-300 text-base line-clamp-2 mb-4 leading-relaxed">
+                  {category.description}
+                </p>
+              )}
+
+              <div className="flex items-center gap-3">
+                <div
+                  className="px-4 py-2 rounded-xl backdrop-blur-xl"
+                  style={{
+                    background: 'rgba(59, 130, 246, 0.15)',
+                    border: '1px solid rgba(59, 130, 246, 0.3)',
+                  }}
+                >
+                  <span className="text-blue-400 text-sm font-bold uppercase tracking-wider">
+                    Kategori
+                  </span>
+                </div>
+                
+                <motion.div
+                  className="flex items-center gap-2 text-blue-400 font-bold"
+                  animate={{ opacity: isHovered ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Sparkles className="h-4 w-4" />
+                  <span className="text-sm">Keşfet</span>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Arrow */}
             <motion.div
-              className="flex items-center justify-between"
-              animate={{
-                x: isHovered ? 4 : 0,
+              className="flex-shrink-0"
+              animate={{ 
+                x: isHovered ? 6 : 0,
               }}
               transition={{ duration: 0.3 }}
             >
-              <span className="text-sm font-bold text-blue-300">Kategoriye Git</span>
-              <motion.div
-                animate={{
-                  x: isHovered ? 4 : 0,
-                  scale: isHovered ? 1.2 : 1,
+              <div
+                className="w-16 h-16 rounded-2xl backdrop-blur-xl flex items-center justify-center"
+                style={{
+                  background: isHovered
+                    ? 'linear-gradient(135deg, #3B82F6, #8B5CF6)'
+                    : 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2))',
+                  border: '2px solid rgba(59, 130, 246, 0.4)',
+                  boxShadow: isHovered ? '0 8px 24px rgba(59, 130, 246, 0.5)' : 'none',
                 }}
-                transition={{ duration: 0.3 }}
               >
-                <ArrowRight className="h-5 w-5 text-blue-300" />
-              </motion.div>
+                <ChevronRight className="h-7 w-7 text-white" />
+              </div>
             </motion.div>
           </div>
         </motion.div>
