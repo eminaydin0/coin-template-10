@@ -44,7 +44,7 @@ const highlight = (text: string, query: string) => {
     const parts = text.split(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'ig'));
     return parts.map((part, i) =>
       part.toLowerCase() === q.toLowerCase() ? (
-        <mark key={i} className="bg-purple-500/40 text-purple-200 rounded px-0.5 font-semibold">{part}</mark>
+        <mark key={i} className="bg-blue-500/40 text-blue-200 rounded px-0.5 font-semibold">{part}</mark>
       ) : (
         <span key={i}>{part}</span>
       )
@@ -240,26 +240,46 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
           >
             {/* Main Container */}
             <div
-              className="rounded-2xl overflow-hidden border shadow-2xl"
+              className="rounded-3xl overflow-hidden border-2 shadow-2xl relative"
               style={{
-                background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(15, 15, 25, 0.95))',
-                border: '1px solid rgba(168, 85, 247, 0.3)',
-                boxShadow: '0 25px 50px -12px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(168, 85, 247, 0.1)',
+                background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
+                border: '2px solid rgba(59, 130, 246, 0.3)',
+                boxShadow: '0 25px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.1), 0 0 60px rgba(59, 130, 246, 0.2)',
                 backdropFilter: 'blur(24px)',
               }}
             >
+              {/* Animated Top Border */}
+              <motion.div
+                className="absolute top-0 left-0 right-0 h-1 z-10"
+                style={{
+                  background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
+                }}
+                animate={{
+                  backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+              />
+              
+              {/* Diagonal Accent */}
+              <div 
+                className="absolute top-0 right-0 w-64 h-64 opacity-20 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(135deg, transparent, rgba(96, 165, 250, 0.4))',
+                  clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+                }}
+              />
               {/* Search Input Bar */}
-              <div className="relative px-6 py-5 border-b" style={{ borderColor: 'rgba(168, 85, 247, 0.15)' }}>
+              <div className="relative px-6 py-5 border-b" style={{ borderColor: 'rgba(59, 130, 246, 0.2)' }}>
                 <div className="flex items-center gap-4">
                   <div className="flex-shrink-0">
                     <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center"
+                      className="w-12 h-12 rounded-xl flex items-center justify-center"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.15))',
-                        border: '1px solid rgba(168, 85, 247, 0.3)',
+                        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2))',
+                        border: '1px solid rgba(59, 130, 246, 0.3)',
                       }}
                     >
-                      <Search className="h-5 w-5 text-purple-300" />
+                      <Search className="h-6 w-6 text-blue-400" />
                     </div>
                   </div>
                   
@@ -278,7 +298,7 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                     />
                     {isSearching && (
                       <div className="absolute right-0 top-1/2 -translate-y-1/2">
-                        <Loader2 className="h-4 w-4 animate-spin text-purple-400" />
+                        <Loader2 className="h-4 w-4 animate-spin text-blue-400" />
                       </div>
                     )}
                   </div>
@@ -286,37 +306,37 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                   {/* Keyboard Hints */}
                   <div className="hidden sm:flex items-center gap-1.5 flex-shrink-0">
                     <div
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium"
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-bold"
                       style={{
-                        background: 'rgba(139, 92, 246, 0.1)',
-                        border: '1px solid rgba(168, 85, 247, 0.2)',
-                        color: 'rgba(168, 85, 247, 0.9)',
+                        background: 'rgba(59, 130, 246, 0.15)',
+                        border: '1px solid rgba(59, 130, 246, 0.2)',
+                        color: 'rgba(96, 165, 250, 1)',
                       }}
                     >
                       <Keyboard className="h-3 w-3" />
                       <span>↑↓</span>
                     </div>
                     <div
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-medium"
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-bold"
                       style={{
-                        background: 'rgba(139, 92, 246, 0.1)',
-                        border: '1px solid rgba(168, 85, 247, 0.2)',
-                        color: 'rgba(168, 85, 247, 0.9)',
+                        background: 'rgba(59, 130, 246, 0.15)',
+                        border: '1px solid rgba(59, 130, 246, 0.2)',
+                        color: 'rgba(96, 165, 250, 1)',
                       }}
                     >
                       <span>Enter</span>
                     </div>
                     <motion.button
                       onClick={handleClose}
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
-                      className="w-8 h-8 rounded-lg flex items-center justify-center"
+                      className="w-9 h-9 rounded-xl flex items-center justify-center transition-all"
                       style={{
-                        background: 'rgba(75, 85, 99, 0.2)',
-                        border: '1px solid rgba(75, 85, 99, 0.3)',
+                        background: 'rgba(239, 68, 68, 0.15)',
+                        border: '1px solid rgba(239, 68, 68, 0.3)',
                       }}
                     >
-                      <X className="h-4 w-4 text-gray-400" />
+                      <X className="h-4 w-4 text-red-400" />
                     </motion.button>
                   </div>
                 </div>
@@ -339,7 +359,7 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                     <motion.div
                       animate={{ rotate: 360 }}
                       transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                      className="w-12 h-12 rounded-full border-2 border-purple-500/30 border-t-purple-500 mb-4"
+                      className="w-12 h-12 rounded-full border-2 border-blue-500/30 border-t-blue-500 mb-4"
                     />
                     <h3 className="text-base font-bold text-white mb-1">Ürünler Yükleniyor</h3>
                     <p className="text-sm text-gray-400">Kategorilerden ürünler getiriliyor...</p>
@@ -358,11 +378,11 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                       <div className="px-4 py-2 mb-2">
                         <div className="flex items-center gap-2">
                           <span
-                            className="text-[10px] font-bold px-2.5 py-1 rounded-full"
+                            className="text-[10px] font-bold px-3 py-1.5 rounded-xl"
                             style={{
-                              background: 'rgba(139, 92, 246, 0.15)',
-                              border: '1px solid rgba(168, 85, 247, 0.3)',
-                              color: 'rgba(168, 85, 247, 0.95)',
+                              background: 'rgba(59, 130, 246, 0.15)',
+                              border: '1px solid rgba(59, 130, 246, 0.3)',
+                              color: 'rgba(96, 165, 250, 1)',
                             }}
                           >
                             {searchResults.length} Sonuç
@@ -387,17 +407,17 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                               className="block"
                             >
                               <motion.div
-                                className={`relative flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all duration-200 ${
+                                className={`relative flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 ${
                                   activeIndex === index
-                                    ? 'bg-gradient-to-r from-purple-500/20 to-purple-600/10'
+                                    ? 'bg-gradient-to-r from-blue-500/20 via-purple-500/15 to-pink-500/10'
                                     : 'hover:bg-white/5'
                                 }`}
                                 style={{
                                   border: activeIndex === index
-                                    ? '1px solid rgba(168, 85, 247, 0.4)'
+                                    ? '2px solid rgba(59, 130, 246, 0.4)'
                                     : '1px solid transparent',
                                   boxShadow: activeIndex === index
-                                    ? '0 4px 12px rgba(139, 92, 246, 0.15)'
+                                    ? '0 8px 24px rgba(59, 130, 246, 0.2)'
                                     : 'none',
                                 }}
                                 whileHover={{ x: 4 }}
@@ -407,8 +427,8 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                                   <div
                                     className="w-14 h-14 rounded-xl overflow-hidden border flex items-center justify-center"
                                     style={{
-                                      background: 'rgba(139, 92, 246, 0.1)',
-                                      border: '1px solid rgba(168, 85, 247, 0.25)',
+                                      background: 'rgba(59, 130, 246, 0.1)',
+                                      border: '1px solid rgba(59, 130, 246, 0.25)',
                                     }}
                                   >
                                     {item.url ? (
@@ -428,7 +448,7 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                                       className="absolute inset-0 hidden items-center justify-center"
                                       style={{ display: item.url ? ('none' as any) : 'flex' }}
                                     >
-                                      <Gamepad2 className="h-6 w-6 text-purple-300/60" />
+                                      <Gamepad2 className="h-6 w-6 text-blue-400/60" />
                                     </div>
                                   </div>
                                 </div>
@@ -440,7 +460,7 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                                   </h3>
                                   {item.category?.name && (
                                     <div className="flex items-center gap-2 mb-2">
-                                      <Tag className="h-3 w-3 text-purple-400/60" />
+                                      <Tag className="h-3 w-3 text-blue-400/60" />
                                       <span className="text-xs text-gray-400 truncate">
                                         {highlight(item.category.name, searchQuery)}
                                       </span>
@@ -450,8 +470,8 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                                     <span
                                       className="text-sm font-bold px-2.5 py-0.5 rounded-lg"
                                       style={{
-                                        background: 'rgba(139, 92, 246, 0.2)',
-                                        color: 'rgba(192, 132, 252, 1)',
+                                        background: 'rgba(59, 130, 246, 0.2)',
+                                        color: 'rgba(96, 165, 250, 1)',
                                       }}
                                     >
                                       {formatPrice(item.price)}
@@ -470,11 +490,11 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                                     className="w-8 h-8 rounded-lg flex items-center justify-center"
                                     style={{
                                       background: activeIndex === index
-                                        ? 'rgba(168, 85, 247, 0.2)'
+                                        ? 'rgba(59, 130, 246, 0.2)'
                                         : 'rgba(75, 85, 99, 0.2)',
                                     }}
                                   >
-                                    <ArrowRight className="h-4 w-4 text-purple-300" />
+                                    <ArrowRight className="h-4 w-4 text-blue-400" />
                                   </div>
                                 </div>
                               </motion.div>
@@ -490,13 +510,13 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                         animate={{ scale: 1, opacity: 1 }}
                         className="w-20 h-20 rounded-2xl flex items-center justify-center mb-4"
                         style={{
-                          background: 'rgba(139, 92, 246, 0.1)',
-                          border: '1px solid rgba(168, 85, 247, 0.3)',
+                          background: 'rgba(59, 130, 246, 0.1)',
+                          border: '1px solid rgba(59, 130, 246, 0.3)',
                         }}
                       >
-                        <Search className="h-10 w-10 text-purple-300/60" />
+                        <Search className="h-10 w-10 text-blue-400/60" />
                       </motion.div>
-                      <h3 className="text-xl font-bold text-white mb-2">Sonuç Bulunamadı</h3>
+                      <h3 className="text-xl font-black text-white mb-2">Sonuç Bulunamadı</h3>
                       <p className="text-sm text-gray-400 max-w-md">
                         "{searchQuery}" için sonuç bulunamadı. Farklı bir arama terimi deneyin.
                       </p>
@@ -510,19 +530,19 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                       transition={{ delay: 0.1 }}
                       className="w-24 h-24 rounded-2xl flex items-center justify-center mb-6"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(168, 85, 247, 0.1))',
-                        border: '1px solid rgba(168, 85, 247, 0.3)',
+                        background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.1))',
+                        border: '1px solid rgba(59, 130, 246, 0.3)',
                       }}
                     >
-                      <Search className="h-12 w-12 text-purple-300/70" />
+                      <Search className="h-12 w-12 text-blue-400/70" />
                     </motion.div>
                     <motion.h3
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 }}
-                      className="text-2xl font-bold text-white mb-3"
+                      className="text-2xl font-black text-white mb-3"
                     >
-                      <span className="bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
+                      <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                         Oyun Ara
                       </span>
                     </motion.h3>
@@ -541,32 +561,32 @@ const SearchModal = ({ isOpen, onClose, homepageItems }: SearchModalProps) => {
                       className="flex items-center gap-3 mt-6"
                     >
                       <div
-                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold"
                         style={{
-                          background: 'rgba(139, 92, 246, 0.1)',
-                          border: '1px solid rgba(168, 85, 247, 0.2)',
-                          color: 'rgba(168, 85, 247, 0.9)',
+                          background: 'rgba(59, 130, 246, 0.15)',
+                          border: '1px solid rgba(59, 130, 246, 0.2)',
+                          color: 'rgba(96, 165, 250, 1)',
                         }}
                       >
                         <Keyboard className="h-3.5 w-3.5" />
                         <span>↑↓ Gezin</span>
                       </div>
                       <div
-                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold"
                         style={{
-                          background: 'rgba(139, 92, 246, 0.1)',
-                          border: '1px solid rgba(168, 85, 247, 0.2)',
-                          color: 'rgba(168, 85, 247, 0.9)',
+                          background: 'rgba(59, 130, 246, 0.15)',
+                          border: '1px solid rgba(59, 130, 246, 0.2)',
+                          color: 'rgba(96, 165, 250, 1)',
                         }}
                       >
                         <span>Enter Seç</span>
                       </div>
                       <div
-                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs"
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold"
                         style={{
-                          background: 'rgba(139, 92, 246, 0.1)',
-                          border: '1px solid rgba(168, 85, 247, 0.2)',
-                          color: 'rgba(168, 85, 247, 0.9)',
+                          background: 'rgba(59, 130, 246, 0.15)',
+                          border: '1px solid rgba(59, 130, 246, 0.2)',
+                          color: 'rgba(96, 165, 250, 1)',
                         }}
                       >
                         <span>Esc Kapat</span>

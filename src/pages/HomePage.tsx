@@ -41,7 +41,7 @@ const HomePage = () => {
   const [homepageItems, setHomepageItems] = useState<HomepageItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
-  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(1);
   const [isPlaying, setIsPlaying] = useState(true);
   const { getHeroList } = useWebsite();
   const heroList = getHeroList();
@@ -186,7 +186,7 @@ const HomePage = () => {
 
             {/* 8. Call To Action Section */}
             <section className="w-full">
-              <div className="rounded-3xl backdrop-blur-xl border p-6"
+              <div className="rounded-3xl backdrop-blur-xl border "
                 style={{
                   background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%)',
                   border: '1px solid rgba(59, 130, 246, 0.3)',

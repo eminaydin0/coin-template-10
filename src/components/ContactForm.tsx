@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { User, Mail, MessageSquare, Send } from 'lucide-react';
+import { User, Mail, MessageSquare, Send, ArrowRight } from 'lucide-react';
 import { createMessage } from '../services/api';
 import toast from 'react-hot-toast';
 
@@ -12,7 +12,7 @@ interface ContactFormProps {
   backText: string;
 }
 
-const ContactForm = ({ title, description, method, backLink, backText }: ContactFormProps) => {
+const ContactForm = ({ title, description, method }: ContactFormProps) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -42,7 +42,6 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
       await createMessage(messageData);
       toast.success('Mesajınız başarıyla gönderildi!');
       
-      // Form'u temizle
       setFormData({
         firstName: '',
         lastName: '',
@@ -73,20 +72,19 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
-              className="w-12 h-12 flex items-center justify-center mx-auto mb-3 rounded-xl"
+              className="w-14 h-14 flex items-center justify-center mx-auto mb-4 rounded-xl"
               style={{
-                background: 'rgba(139, 92, 246, 0.2)',
-                border: '1px solid rgba(168, 85, 247, 0.35)',
-                boxShadow: '0 4px 12px rgba(139, 92, 246, 0.15)',
-                backdropFilter: 'blur(8px)'
+                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2))',
+                border: '1px solid rgba(59, 130, 246, 0.3)',
+                boxShadow: '0 8px 24px rgba(59, 130, 246, 0.2)',
               }}
             >
-              <MessageSquare className="h-5 w-5 text-purple-300" />
+              <MessageSquare className="h-6 w-6 text-blue-400" />
             </motion.div>
-            <h1 className="text-xl font-bold mb-2 bg-gradient-to-r from-purple-300 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="text-2xl font-black mb-2 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               {title}
-            </h1>
-            <p className="text-gray-400 text-xs max-w-md mx-auto leading-relaxed">
+            </h2>
+            <p className="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
               {description}
             </p>
           </div>
@@ -97,29 +95,23 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative rounded-xl overflow-hidden border relative z-10 p-4"
-          style={{
-            background: 'rgba(0, 0, 0, 0.6)',
-            border: '1px solid rgba(168, 85, 247, 0.2)',
-            boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
-            backdropFilter: 'blur(12px)',
-          }}
         >
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name Fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="firstName" className="block text-xs font-semibold text-gray-300 mb-1.5">
+                <label htmlFor="firstName" className="block text-sm font-bold text-gray-300 mb-2">
                   Ad
                 </label>
                 <div className="relative">
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 rounded-lg grid place-items-center"
+                  <div 
+                    className="absolute left-0 h-full w-12 flex items-center justify-center border-r rounded-l-xl"
                     style={{
-                      background: 'rgba(139, 92, 246, 0.15)',
-                      border: '1px solid rgba(168, 85, 247, 0.25)',
+                      background: 'rgba(0, 0, 0, 0.3)',
+                      borderColor: 'rgba(59, 130, 246, 0.3)',
                     }}
                   >
-                    <User className="h-3 w-3 text-purple-300" />
+                    <User className="h-4 w-4 text-blue-400" />
                   </div>
                   <input
                     type="text"
@@ -128,21 +120,21 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
                     value={formData.firstName}
                     onChange={handleChange}
                     required
-                    className="w-full text-white px-3 py-2.5 pl-10 rounded-lg outline-none transition-all text-xs"
+                    className="w-full text-white pl-14 pr-4 py-3.5 rounded-xl outline-none transition-all text-sm font-medium"
                     style={{
-                      background: 'rgba(0, 0, 0, 0.6)',
-                      border: '1.5px solid rgba(168, 85, 247, 0.25)',
-                      boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+                      background: 'rgba(0, 0, 0, 0.5)',
+                      border: '2px solid rgba(59, 130, 246, 0.3)',
+                      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
                     }}
                     onFocus={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.6)';
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(139, 92, 246, 0.1), inset 0 2px 4px rgba(0,0,0,0.2)';
-                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
+                      e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.6)';
+                      e.currentTarget.style.boxShadow = '0 0 0 4px rgba(59, 130, 246, 0.1), 0 8px 24px rgba(0, 0, 0, 0.3)';
+                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
                     }}
                     onBlur={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.25)';
-                      e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
+                      e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                      e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.5)';
                     }}
                     placeholder="Adınız"
                   />
@@ -150,17 +142,18 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
               </div>
               
               <div>
-                <label htmlFor="lastName" className="block text-xs font-semibold text-gray-300 mb-1.5">
+                <label htmlFor="lastName" className="block text-sm font-bold text-gray-300 mb-2">
                   Soyad
                 </label>
                 <div className="relative">
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 rounded-lg grid place-items-center"
+                  <div 
+                    className="absolute left-0 h-full w-12 flex items-center justify-center border-r rounded-l-xl"
                     style={{
-                      background: 'rgba(139, 92, 246, 0.15)',
-                      border: '1px solid rgba(168, 85, 247, 0.25)',
+                      background: 'rgba(0, 0, 0, 0.3)',
+                      borderColor: 'rgba(59, 130, 246, 0.3)',
                     }}
                   >
-                    <User className="h-3 w-3 text-purple-300" />
+                    <User className="h-4 w-4 text-blue-400" />
                   </div>
                   <input
                     type="text"
@@ -169,21 +162,21 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
                     value={formData.lastName}
                     onChange={handleChange}
                     required
-                    className="w-full text-white px-3 py-2.5 pl-10 rounded-lg outline-none transition-all text-xs"
+                    className="w-full text-white pl-14 pr-4 py-3.5 rounded-xl outline-none transition-all text-sm font-medium"
                     style={{
-                      background: 'rgba(0, 0, 0, 0.6)',
-                      border: '1.5px solid rgba(168, 85, 247, 0.25)',
-                      boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+                      background: 'rgba(0, 0, 0, 0.5)',
+                      border: '2px solid rgba(59, 130, 246, 0.3)',
+                      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
                     }}
                     onFocus={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.6)';
-                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(139, 92, 246, 0.1), inset 0 2px 4px rgba(0,0,0,0.2)';
-                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
+                      e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.6)';
+                      e.currentTarget.style.boxShadow = '0 0 0 4px rgba(59, 130, 246, 0.1), 0 8px 24px rgba(0, 0, 0, 0.3)';
+                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
                     }}
                     onBlur={(e) => {
-                      e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.25)';
-                      e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
+                      e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                      e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                      e.currentTarget.style.background = 'rgba(0, 0, 0, 0.5)';
                     }}
                     placeholder="Soyadınız"
                   />
@@ -193,17 +186,18 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
 
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-xs font-semibold text-gray-300 mb-1.5">
+              <label htmlFor="email" className="block text-sm font-bold text-gray-300 mb-2">
                 E-posta Adresi
               </label>
               <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 rounded-lg grid place-items-center"
+                <div 
+                  className="absolute left-0 h-full w-12 flex items-center justify-center border-r rounded-l-xl"
                   style={{
-                    background: 'rgba(139, 92, 246, 0.15)',
-                    border: '1px solid rgba(168, 85, 247, 0.25)',
+                    background: 'rgba(0, 0, 0, 0.3)',
+                    borderColor: 'rgba(59, 130, 246, 0.3)',
                   }}
                 >
-                  <Mail className="h-3 w-3 text-purple-300" />
+                  <Mail className="h-4 w-4 text-blue-400" />
                 </div>
                 <input
                   type="email"
@@ -212,21 +206,21 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full text-white px-3 py-2.5 pl-10 rounded-lg outline-none transition-all text-xs"
+                  className="w-full text-white pl-14 pr-4 py-3.5 rounded-xl outline-none transition-all text-sm font-medium"
                   style={{
-                    background: 'rgba(0, 0, 0, 0.6)',
-                    border: '1.5px solid rgba(168, 85, 247, 0.25)',
-                    boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+                    background: 'rgba(0, 0, 0, 0.5)',
+                    border: '2px solid rgba(59, 130, 246, 0.3)',
+                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
                   }}
                   onFocus={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.6)';
-                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(139, 92, 246, 0.1), inset 0 2px 4px rgba(0,0,0,0.2)';
-                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
+                    e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.6)';
+                    e.currentTarget.style.boxShadow = '0 0 0 4px rgba(59, 130, 246, 0.1), 0 8px 24px rgba(0, 0, 0, 0.3)';
+                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
                   }}
                   onBlur={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.25)';
-                    e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.5)';
                   }}
                   placeholder="ornek@email.com"
                 />
@@ -235,17 +229,18 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
 
             {/* Subject Field */}
             <div>
-              <label htmlFor="title" className="block text-xs font-semibold text-gray-300 mb-1.5">
+              <label htmlFor="title" className="block text-sm font-bold text-gray-300 mb-2">
                 Konu
               </label>
               <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 rounded-lg grid place-items-center"
+                <div 
+                  className="absolute left-0 h-full w-12 flex items-center justify-center border-r rounded-l-xl"
                   style={{
-                    background: 'rgba(139, 92, 246, 0.15)',
-                    border: '1px solid rgba(168, 85, 247, 0.25)',
+                    background: 'rgba(0, 0, 0, 0.3)',
+                    borderColor: 'rgba(59, 130, 246, 0.3)',
                   }}
                 >
-                  <MessageSquare className="h-3 w-3 text-purple-300" />
+                  <MessageSquare className="h-4 w-4 text-blue-400" />
                 </div>
                 <input
                   type="text"
@@ -254,21 +249,21 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
                   value={formData.title}
                   onChange={handleChange}
                   required
-                  className="w-full text-white px-3 py-2.5 pl-10 rounded-lg outline-none transition-all text-xs"
+                  className="w-full text-white pl-14 pr-4 py-3.5 rounded-xl outline-none transition-all text-sm font-medium"
                   style={{
-                    background: 'rgba(0, 0, 0, 0.6)',
-                    border: '1.5px solid rgba(168, 85, 247, 0.25)',
-                    boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+                    background: 'rgba(0, 0, 0, 0.5)',
+                    border: '2px solid rgba(59, 130, 246, 0.3)',
+                    boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
                   }}
                   onFocus={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.6)';
-                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(139, 92, 246, 0.1), inset 0 2px 4px rgba(0,0,0,0.2)';
-                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
+                    e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.6)';
+                    e.currentTarget.style.boxShadow = '0 0 0 4px rgba(59, 130, 246, 0.1), 0 8px 24px rgba(0, 0, 0, 0.3)';
+                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
                   }}
                   onBlur={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.25)';
-                    e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
+                    e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.5)';
                   }}
                   placeholder="Mesajınızın konusu"
                 />
@@ -277,7 +272,7 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
 
             {/* Message Field */}
             <div>
-              <label htmlFor="text" className="block text-xs font-semibold text-gray-300 mb-1.5">
+              <label htmlFor="text" className="block text-sm font-bold text-gray-300 mb-2">
                 Mesaj
               </label>
               <textarea
@@ -286,22 +281,22 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
                 value={formData.text}
                 onChange={handleChange}
                 required
-                rows={4}
-                className="w-full text-white px-3 py-2.5 rounded-lg outline-none transition-all text-xs resize-none"
+                rows={5}
+                className="w-full text-white px-4 py-3.5 rounded-xl outline-none transition-all text-sm font-medium resize-none"
                 style={{
-                  background: 'rgba(0, 0, 0, 0.6)',
-                  border: '1.5px solid rgba(168, 85, 247, 0.25)',
-                  boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.2)',
+                  background: 'rgba(0, 0, 0, 0.5)',
+                  border: '2px solid rgba(59, 130, 246, 0.3)',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
                 }}
                 onFocus={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.6)';
-                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(139, 92, 246, 0.1), inset 0 2px 4px rgba(0,0,0,0.2)';
-                  e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
+                  e.currentTarget.style.borderColor = 'rgba(96, 165, 250, 0.6)';
+                  e.currentTarget.style.boxShadow = '0 0 0 4px rgba(59, 130, 246, 0.1), 0 8px 24px rgba(0, 0, 0, 0.3)';
+                  e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
                 }}
                 onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.25)';
-                  e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.2)';
-                  e.currentTarget.style.background = 'rgba(0, 0, 0, 0.6)';
+                  e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+                  e.currentTarget.style.background = 'rgba(0, 0, 0, 0.5)';
                 }}
                 placeholder="Mesajınızı buraya yazın..."
               />
@@ -311,37 +306,43 @@ const ContactForm = ({ title, description, method, backLink, backText }: Contact
             <motion.button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 text-black font-bold transition-all rounded-xl relative overflow-hidden group text-xs"
+              className="group relative w-full font-bold text-white py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
               style={{
-                background: 'linear-gradient(135deg, rgba(139, 92, 246, 1), rgba(168, 85, 247, 0.9), rgba(139, 92, 246, 1))',
-                boxShadow: '0 8px 24px rgba(139,92,246,0.4), inset 0 1px 0 rgba(255,255,255,0.3)',
+                background: 'linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%)',
+                boxShadow: '0 8px 32px rgba(59, 130, 246, 0.4)',
               }}
-              whileHover={{ scale: loading ? 1 : 1.02, y: loading ? 0 : -2 }}
-              whileTap={{ scale: 0.98 }}
-              onMouseEnter={(e) => {
-                if (!loading) {
-                  e.currentTarget.style.boxShadow = '0 12px 32px rgba(139,92,246,0.5), inset 0 1px 0 rgba(255,255,255,0.4)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 8px 24px rgba(139,92,246,0.4), inset 0 1px 0 rgba(255,255,255,0.3)';
-              }}
+              whileHover={loading ? {} : { scale: 1.02, y: -2 }}
+              whileTap={loading ? {} : { scale: 0.98 }}
             >
+              {/* Animated Background */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                animate={{ x: ['-200%', '200%'] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              />
+              
+              {/* Diagonal Accent */}
+              <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 transform rotate-45 translate-x-12 -translate-y-12" />
+              
               {loading ? (
-                <div className="flex items-center justify-center gap-2">
-                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-black border-t-transparent" />
-                  <span>Gönderiliyor...</span>
-                </div>
+                <span className="relative z-10 flex items-center gap-3">
+                  <motion.div
+                    className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  />
+                  <span className="text-sm">Gönderiliyor...</span>
+                </span>
               ) : (
-                <div className="flex items-center justify-center gap-2">
-                  <Send className="h-4 w-4" />
-                  <span>Mesaj Gönder</span>
-                </div>
+                <span className="relative z-10 flex items-center gap-3">
+                  <Send className="h-5 w-5" />
+                  <span className="text-sm">MESAJ GÖNDER</span>
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </span>
               )}
             </motion.button>
           </form>
         </motion.div>
-
       </div>
     </div>
   );

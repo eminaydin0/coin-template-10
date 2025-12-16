@@ -5,13 +5,12 @@ import { WebsiteProvider } from './context/WebsiteContext';
 import { CheckoutProvider } from './context/CheckoutContext';
 import ScrollToTop from './components/ScrollToTop';
 import { Toaster } from 'react-hot-toast';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SEOHead from './components/SEOHead';
-import SearchModal from './components/SearchModal';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -31,8 +30,6 @@ import ProfilePage from './pages/ProfilePages';
 import './App.css';
 
 function App() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -41,14 +38,6 @@ function App() {
       mirror: false
     });
   }, []);
-
-  const openSearch = () => {
-    setIsSearchOpen(true);
-  };
-
-  const closeSearch = () => {
-    setIsSearchOpen(false);
-  };
 
   return (
     <Router>
@@ -59,7 +48,7 @@ function App() {
               <div className="App">
                 <ScrollToTop />
                 <SEOHead />
-                <Header onOpenSearch={openSearch} />
+                <Header />
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/giris-yap" element={<LoginPage />} />
@@ -126,12 +115,6 @@ function App() {
                 }}
               />
               
-              {/* Search Modal */}
-              <SearchModal
-                isOpen={isSearchOpen}
-                onClose={closeSearch}
-                homepageItems={[]} // SearchModal kendi yükleyecek
-              />
               </div>
             </CheckoutProvider>
           </WebsiteProvider>

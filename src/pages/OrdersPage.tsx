@@ -366,7 +366,7 @@ const OrdersPage = () => {
           <CommonBackground />
           <LoadingSpinner 
             size="xl" 
-            text="SİPARİŞLER YÜKLENİYOR..." 
+            text="Siparişler yükleniyor..." 
             variant="gaming" 
           />
         </div>

@@ -25,7 +25,6 @@ const ConfirmModal = ({
   const dialogRef = useRef<HTMLDivElement>(null);
   const [confirming, setConfirming] = useState(false);
 
-  // ESC & Enter kısayolları + focus trap
   useEffect(() => {
     if (!isOpen) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -77,7 +76,7 @@ const ConfirmModal = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+          className="absolute inset-0 bg-black/80 backdrop-blur-sm"
           onClick={onClose}
           aria-label="Pencereyi kapat"
         />
@@ -93,22 +92,44 @@ const ConfirmModal = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="relative w-full max-w-md rounded-xl border overflow-hidden"
+          className="relative w-full max-w-md rounded-3xl border-2 overflow-hidden"
           style={{
-            background: 'rgba(0, 0, 0, 0.85)',
-            border: '1px solid rgba(168, 85, 247, 0.3)',
-            boxShadow: '0 8px 32px rgba(139, 92, 246, 0.2), 0 4px 16px rgba(0,0,0,0.5)',
-            backdropFilter: 'blur(16px)',
+            background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.99))',
+            border: '2px solid rgba(239, 68, 68, 0.4)',
+            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(239, 68, 68, 0.1)',
+            backdropFilter: 'blur(20px)',
           }}
         >
+          {/* Animated Top Border */}
+          <motion.div
+            className="absolute top-0 left-0 right-0 h-1"
+            style={{
+              background: 'linear-gradient(90deg, #EF4444, #F97316, #EF4444)',
+            }}
+            animate={{
+              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+            }}
+            transition={{ duration: 3, repeat: Infinity }}
+          />
+
+          {/* Diagonal Accent */}
+          <div 
+            className="absolute top-0 right-0 w-32 h-32 opacity-20"
+            style={{
+              background: 'linear-gradient(135deg, transparent, rgba(239, 68, 68, 0.4))',
+              clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+            }}
+          />
+
           {/* Close Button */}
           <motion.button
             whileHover={reduceMotion ? undefined : { scale: 1.1 }}
             whileTap={reduceMotion ? undefined : { scale: 0.9 }}
             onClick={onClose}
-            className="absolute right-3 top-3 z-10 rounded-lg p-1.5 text-gray-400 hover:text-white transition-colors"
+            className="absolute right-4 top-4 z-10 rounded-xl p-2 text-gray-400 hover:text-white transition-all"
             style={{
-              background: 'rgba(75, 85, 99, 0.3)',
+              background: 'rgba(239, 68, 68, 0.1)',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
             }}
             aria-label="Kapat"
           >
@@ -116,39 +137,34 @@ const ConfirmModal = ({
           </motion.button>
 
           {/* Header with Icon */}
-          <div 
-            className="p-6 border-b text-center"
-            style={{
-              background: 'rgba(239, 68, 68, 0.1)',
-              borderColor: 'rgba(239, 68, 68, 0.2)',
-            }}
-          >
+          <div className="p-6 pt-8 text-center relative z-10">
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: 'spring', damping: 15, stiffness: 300 }}
-              className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4"
+              className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4"
               style={{
-                background: 'rgba(239, 68, 68, 0.2)',
-                border: '1px solid rgba(239, 68, 68, 0.4)',
+                background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(249, 115, 22, 0.2))',
+                border: '2px solid rgba(239, 68, 68, 0.4)',
+                boxShadow: '0 8px 32px rgba(239, 68, 68, 0.3)',
               }}
             >
               <AlertTriangle className="h-8 w-8 text-red-400" />
             </motion.div>
-            <h3 id="confirm-title" className="text-xl font-black text-white mb-2">
+            <h3 id="confirm-title" className="text-2xl font-black text-white mb-2">
               {title}
             </h3>
-            <p id="confirm-desc" className="text-sm text-gray-300 leading-relaxed">
+            <p id="confirm-desc" className="text-sm text-gray-400 leading-relaxed max-w-sm mx-auto">
               {message}
             </p>
           </div>
 
           {/* Warning Badge */}
-          <div className="p-4 text-center">
+          <div className="px-6 pb-4 text-center relative z-10">
             <div 
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl"
               style={{
-                background: 'rgba(239, 68, 68, 0.15)',
+                background: 'rgba(239, 68, 68, 0.1)',
                 border: '1px solid rgba(239, 68, 68, 0.3)',
               }}
             >
@@ -157,18 +173,21 @@ const ConfirmModal = ({
             </div>
           </div>
 
+          {/* Divider */}
+          <div className="mx-6 h-px" style={{ background: 'rgba(239, 68, 68, 0.2)' }}></div>
+
           {/* Actions */}
-          <div className="p-6 pt-0 flex gap-3">
+          <div className="p-6 flex gap-3 relative z-10">
             <motion.button
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              whileHover={reduceMotion ? undefined : { scale: 1.02 }}
+              whileHover={reduceMotion ? undefined : { scale: 1.02, y: -2 }}
               whileTap={reduceMotion ? undefined : { scale: 0.98 }}
               onClick={onClose}
-              className="flex-1 px-4 py-3 rounded-lg text-sm font-semibold text-white transition-all"
+              className="flex-1 px-4 py-3.5 rounded-xl text-sm font-bold text-white transition-all"
               style={{
-                background: 'rgba(75, 85, 99, 0.3)',
-                border: '1px solid rgba(75, 85, 99, 0.4)',
+                background: 'rgba(59, 130, 246, 0.1)',
+                border: '2px solid rgba(59, 130, 246, 0.3)',
               }}
             >
               {cancelText}
@@ -177,23 +196,34 @@ const ConfirmModal = ({
             <motion.button
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
-              whileHover={reduceMotion ? undefined : { scale: 1.02 }}
+              whileHover={reduceMotion ? undefined : { scale: 1.02, y: -2 }}
               whileTap={reduceMotion ? undefined : { scale: 0.98 }}
               onClick={doConfirm}
               disabled={confirming}
-              className="flex-1 px-4 py-3 rounded-lg text-sm font-bold text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-3.5 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
               style={{
-                background: 'rgba(239, 68, 68, 0.3)',
-                border: '1px solid rgba(239, 68, 68, 0.5)',
+                background: 'linear-gradient(135deg, #EF4444, #F97316)',
+                boxShadow: '0 8px 32px rgba(239, 68, 68, 0.4)',
               }}
             >
+              {/* Animated Background */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                animate={{ x: ['-200%', '200%'] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              />
+              
               {confirming ? (
-                <div className="flex items-center justify-center gap-2">
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <div className="flex items-center justify-center gap-2 relative z-10">
+                  <motion.div 
+                    className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  />
                   <span>İşleniyor...</span>
                 </div>
               ) : (
-                confirmText
+                <span className="relative z-10">{confirmText}</span>
               )}
             </motion.button>
           </div>

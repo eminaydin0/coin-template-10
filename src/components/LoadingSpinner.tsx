@@ -7,6 +7,7 @@ interface LoadingSpinnerProps {
   text?: string;
   variant?: 'default' | 'gaming' | 'minimal' | 'compact' | 'inline';
   color?: 'blue' | 'red' | 'green' | 'yellow' | 'purple' | 'amber';
+  gradient?: boolean;
   className?: string;
   showBackground?: boolean;
 }
@@ -15,9 +16,10 @@ const LoadingSpinner = ({
   size = 'lg', 
   text = 'Yükleniyor...', 
   variant = 'gaming',
-  color = 'purple',
+  color = 'blue',
   className = '',
-  showBackground = false
+  showBackground = false,
+  gradient = true
 }: LoadingSpinnerProps) => {
   const sizeClasses = {
     xs: 'w-4 h-4',
@@ -43,17 +45,17 @@ const LoadingSpinner = ({
     xl: 'w-8 h-8'
   };
 
-  // Color mapping
+  // Color mapping - LoginPage style (blue-purple-pink gradient theme)
   const colorClasses = {
-    blue: { border: 'border-blue-300', icon: 'text-blue-300', dot: 'bg-blue-300/60', style: { borderColor: 'rgba(59, 130, 246, 0.2)', borderTopColor: 'rgba(59, 130, 246, 0.8)', boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' } },
-    red: { border: 'border-red-300', icon: 'text-red-300', dot: 'bg-red-300/60', style: { borderColor: 'rgba(239, 68, 68, 0.2)', borderTopColor: 'rgba(239, 68, 68, 0.8)', boxShadow: '0 0 20px rgba(239, 68, 68, 0.3)' } },
-    green: { border: 'border-green-300', icon: 'text-green-300', dot: 'bg-green-300/60', style: { borderColor: 'rgba(34, 197, 94, 0.2)', borderTopColor: 'rgba(34, 197, 94, 0.8)', boxShadow: '0 0 20px rgba(34, 197, 94, 0.3)' } },
-    yellow: { border: 'border-yellow-300', icon: 'text-yellow-300', dot: 'bg-yellow-300/60', style: { borderColor: 'rgba(234, 179, 8, 0.2)', borderTopColor: 'rgba(234, 179, 8, 0.8)', boxShadow: '0 0 20px rgba(234, 179, 8, 0.3)' } },
-    purple: { border: 'border-purple-300', icon: 'text-purple-300', dot: 'bg-purple-300/60', style: { borderColor: 'rgba(139, 92, 246, 0.2)', borderTopColor: 'rgba(168, 85, 247, 0.8)', boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' } },
-    amber: { border: 'border-amber-300', icon: 'text-amber-300', dot: 'bg-amber-300/60', style: { borderColor: 'rgba(251, 191, 36, 0.2)', borderTopColor: 'rgba(251, 191, 36, 0.8)', boxShadow: '0 0 20px rgba(251, 191, 36, 0.3)' } }
+    blue: { border: 'border-blue-400', icon: 'text-blue-400', dot: 'bg-blue-400/60', style: { borderColor: 'rgba(59, 130, 246, 0.2)', borderTopColor: 'rgba(96, 165, 250, 0.9)', boxShadow: '0 0 25px rgba(59, 130, 246, 0.4)' } },
+    red: { border: 'border-red-400', icon: 'text-red-400', dot: 'bg-red-400/60', style: { borderColor: 'rgba(239, 68, 68, 0.2)', borderTopColor: 'rgba(248, 113, 113, 0.9)', boxShadow: '0 0 25px rgba(239, 68, 68, 0.4)' } },
+    green: { border: 'border-green-400', icon: 'text-green-400', dot: 'bg-green-400/60', style: { borderColor: 'rgba(34, 197, 94, 0.2)', borderTopColor: 'rgba(74, 222, 128, 0.9)', boxShadow: '0 0 25px rgba(34, 197, 94, 0.4)' } },
+    yellow: { border: 'border-yellow-400', icon: 'text-yellow-400', dot: 'bg-yellow-400/60', style: { borderColor: 'rgba(234, 179, 8, 0.2)', borderTopColor: 'rgba(250, 204, 21, 0.9)', boxShadow: '0 0 25px rgba(234, 179, 8, 0.4)' } },
+    purple: { border: 'border-purple-400', icon: 'text-purple-400', dot: 'bg-purple-400/60', style: { borderColor: 'rgba(139, 92, 246, 0.2)', borderTopColor: 'rgba(192, 132, 252, 0.9)', boxShadow: '0 0 25px rgba(139, 92, 246, 0.4)' } },
+    amber: { border: 'border-amber-400', icon: 'text-amber-400', dot: 'bg-amber-400/60', style: { borderColor: 'rgba(251, 191, 36, 0.2)', borderTopColor: 'rgba(251, 191, 36, 0.9)', boxShadow: '0 0 25px rgba(251, 191, 36, 0.4)' } }
   };
 
-  const selectedColor = colorClasses[color] || colorClasses.purple;
+  const selectedColor = colorClasses[color] || colorClasses.blue;
 
   // Inline variant - just the spinner without container
   if (variant === 'inline') {
@@ -115,26 +117,53 @@ const LoadingSpinner = ({
   if (variant === 'gaming') {
     const spinnerContent = (
       <div className={`flex flex-col items-center justify-center space-y-6 relative min-h-screen ${className}`}>
-        {/* Amber Spinner */}
+        {/* LoginPage Style Spinner */}
         <div className="relative">
+          {/* Outer Glow Ring */}
+          {gradient && (
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.3))',
+                filter: 'blur(8px)',
+              }}
+              animate={{ 
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.8, 0.5]
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+          )}
+          
           {/* Main Spinner Ring */}
           <motion.div
             className={`${sizeClasses[size]} border-4 rounded-full relative`}
-            style={selectedColor.style}
+            style={gradient ? {
+              borderColor: 'rgba(59, 130, 246, 0.2)',
+              borderTopColor: '#3B82F6',
+              borderRightColor: '#8B5CF6',
+              boxShadow: '0 0 30px rgba(59, 130, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.2)'
+            } : selectedColor.style}
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
           />
           
           {/* Center Icon */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-            <Loader2 className={`${iconSizes[size]} ${selectedColor.icon}`} />
+            <Loader2 className={`${iconSizes[size]} ${gradient ? 'text-blue-400' : selectedColor.icon}`} />
           </div>
         </div>
 
         {/* Loading Text */}
         <div className="text-center space-y-3">
           <motion.p 
-            className={`${textSizes[size]} text-gray-300 font-medium`}
+            className={`${textSizes[size]} font-bold`}
+            style={{
+              background: gradient ? 'linear-gradient(90deg, #60A5FA, #A78BFA, #F472B6)' : undefined,
+              WebkitBackgroundClip: gradient ? 'text' : undefined,
+              WebkitTextFillColor: gradient ? 'transparent' : undefined,
+              color: gradient ? undefined : 'rgb(209, 213, 219)'
+            }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -142,14 +171,18 @@ const LoadingSpinner = ({
             {text}
           </motion.p>
           
-          {/* Animated Dots */}
+          {/* Animated Dots - Gradient Colors */}
           <div className="flex justify-center space-x-2">
-            {[0, 1, 2].map((i) => (
+            {[
+              gradient ? 'bg-blue-400' : selectedColor.dot,
+              gradient ? 'bg-purple-400' : selectedColor.dot,
+              gradient ? 'bg-pink-400' : selectedColor.dot
+            ].map((dotColor, i) => (
               <motion.div
                 key={i}
-                className={`w-2 h-2 rounded-full ${selectedColor.dot}`}
+                className={`w-2 h-2 rounded-full ${dotColor}`}
                 animate={{ 
-                  scale: [1, 1.2, 1],
+                  scale: [1, 1.3, 1],
                   opacity: [0.4, 1, 0.4]
                 }}
                 transition={{ 
@@ -177,19 +210,36 @@ const LoadingSpinner = ({
     return spinnerContent;
   }
 
-  // Default variant
+  // Default variant - LoginPage style
   const defaultContent = (
     <div className={`flex flex-col items-center justify-center space-y-4 ${className}`}>
-      {/* Amber Spinner */}
+      {/* LoginPage Style Spinner */}
       <div className="relative">
+        {/* Outer Glow */}
+        {gradient && (
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.3))',
+              filter: 'blur(6px)',
+            }}
+            animate={{ 
+              scale: [1, 1.15, 1],
+              opacity: [0.4, 0.7, 0.4]
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+        )}
+        
         {/* Main Spinner Ring */}
         <motion.div
           className={`${sizeClasses[size]} border-4 rounded-full relative`}
-          style={{
-            borderColor: 'rgba(251, 191, 36, 0.2)',
-            borderTopColor: 'rgba(251, 191, 36, 0.8)',
-            boxShadow: '0 0 20px rgba(251, 191, 36, 0.3)'
-          }}
+          style={gradient ? {
+            borderColor: 'rgba(59, 130, 246, 0.2)',
+            borderTopColor: '#3B82F6',
+            borderRightColor: '#8B5CF6',
+            boxShadow: '0 0 25px rgba(59, 130, 246, 0.4)'
+          } : selectedColor.style}
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
           role="status"
@@ -198,7 +248,7 @@ const LoadingSpinner = ({
         
         {/* Center Icon */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-          <Loader2 className={`${iconSizes[size]} text-amber-400`} />
+          <Loader2 className={`${iconSizes[size]} ${gradient ? 'text-blue-400' : selectedColor.icon}`} />
         </div>
       </div>
       
@@ -206,7 +256,13 @@ const LoadingSpinner = ({
       {text && (
         <div className="text-center space-y-2">
           <motion.p 
-            className={`${textSizes[size]} text-gray-300 font-medium`}
+            className={`${textSizes[size]} font-bold`}
+            style={{
+              background: gradient ? 'linear-gradient(90deg, #60A5FA, #A78BFA, #F472B6)' : undefined,
+              WebkitBackgroundClip: gradient ? 'text' : undefined,
+              WebkitTextFillColor: gradient ? 'transparent' : undefined,
+              color: gradient ? undefined : 'rgb(209, 213, 219)'
+            }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -214,12 +270,16 @@ const LoadingSpinner = ({
             {text}
           </motion.p>
           
-          {/* Animated Dots */}
+          {/* Animated Dots - Gradient Colors */}
           <div className="flex justify-center space-x-2">
-            {[0, 1, 2].map((i) => (
+            {[
+              gradient ? 'bg-blue-400' : selectedColor.dot,
+              gradient ? 'bg-purple-400' : selectedColor.dot,
+              gradient ? 'bg-pink-400' : selectedColor.dot
+            ].map((dotColor, i) => (
               <motion.div
                 key={i}
-                className={`w-2 h-2 rounded-full ${selectedColor.dot}`}
+                className={`w-2 h-2 rounded-full ${dotColor}`}
                 animate={{ 
                   scale: [1, 1.2, 1],
                   opacity: [0.4, 1, 0.4]

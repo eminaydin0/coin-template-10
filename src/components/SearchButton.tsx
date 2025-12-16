@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Search } from 'lucide-react';
+import { Search, Command } from 'lucide-react';
 
 interface SearchButtonProps {
   onClick: () => void;
@@ -9,94 +9,94 @@ const SearchButton = ({ onClick }: SearchButtonProps) => {
   return (
     <motion.button
       onClick={onClick}
-      className="fixed bottom-6 left-6 z-40 group"
-      whileHover={{ scale: 1.1, y: -2 }}
+      className="fixed bottom-6 right-6 z-40 group"
+      whileHover={{ scale: 1.05, y: -3 }}
       whileTap={{ scale: 0.95 }}
-      initial={{ opacity: 0, x: -50 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay: 1 }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.8 }}
     >
-      {/* Outer Glow Ring */}
-      <div 
-        className="absolute -inset-2 rounded-full blur-lg opacity-30 group-hover:opacity-60 transition-all duration-500"
+      {/* Outer Pulsing Glow */}
+      <motion.div 
+        className="absolute -inset-3 rounded-2xl blur-xl"
         style={{
-          background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.6), rgba(168, 85, 247, 0.4), rgba(139, 92, 246, 0.6))'
+          background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.4))'
         }}
-      ></div>
+        animate={{
+          opacity: [0.3, 0.6, 0.3],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+      />
       
       {/* Main Button */}
       <div 
-        className="relative text-white font-bold py-2.5 px-4 transition-all duration-500 shadow-lg rounded-xl overflow-hidden group/btn"
+        className="relative flex items-center gap-3 text-white font-bold py-3 px-5 transition-all duration-300 rounded-2xl overflow-hidden"
         style={{
-          background: 'linear-gradient(135deg, rgba(139, 92, 246, 1), rgba(168, 85, 247, 0.9), rgba(139, 92, 246, 1))',
-          border: '1px solid rgba(168, 85, 247, 0.5)',
-          boxShadow: '0 8px 24px rgba(139,92,246,0.4), inset 0 1px 0 rgba(255,255,255,0.3)',
-          backdropFilter: 'blur(8px)',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = '0 12px 32px rgba(139,92,246,0.5), inset 0 1px 0 rgba(255,255,255,0.4)';
-          e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.7)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = '0 8px 24px rgba(139,92,246,0.4), inset 0 1px 0 rgba(255,255,255,0.3)';
-          e.currentTarget.style.borderColor = 'rgba(168, 85, 247, 0.5)';
+          background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98))',
+          border: '2px solid rgba(59, 130, 246, 0.3)',
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+          backdropFilter: 'blur(20px)',
         }}
       >
-        {/* Button glow effect */}
-        <div 
-          className="absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 rounded-xl"
+        {/* Animated Top Border */}
+        <motion.div
+          className="absolute top-0 left-0 right-0 h-0.5"
           style={{
-            background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(168, 85, 247, 0.2))'
+            background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
           }}
-        ></div>
+          animate={{
+            backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+          }}
+          transition={{ duration: 3, repeat: Infinity }}
+        />
         
-        {/* Content */}
-        <div className="relative z-10 flex items-center gap-2">
-          <Search className="w-4 h-4 group-hover/btn:rotate-12 transition-transform duration-300" />
-          <span className="text-xs font-bold tracking-wide">ARA</span>
+        {/* Diagonal Accent */}
+        <div 
+          className="absolute top-0 right-0 w-16 h-16 opacity-20"
+          style={{
+            background: 'linear-gradient(135deg, transparent, rgba(96, 165, 250, 0.4))',
+            clipPath: 'polygon(100% 0, 100% 100%, 0 0)',
+          }}
+        />
+        
+        {/* Search Icon */}
+        <div 
+          className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+          style={{
+            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2))',
+            border: '1px solid rgba(59, 130, 246, 0.3)',
+          }}
+        >
+          <Search className="w-5 h-5 text-blue-400" />
         </div>
         
-        {/* Shine effect */}
-        <motion.div
-          className="absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-700 pointer-events-none rounded-xl"
+        {/* Text */}
+        <div className="flex flex-col items-start">
+          <span className="text-sm font-black bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Oyun Ara
+          </span>
+          <span className="text-[10px] text-gray-400 font-medium">Hızlı arama</span>
+        </div>
+        
+        {/* Keyboard Shortcut Badge */}
+        <div 
+          className="flex items-center gap-1 px-2 py-1 rounded-lg ml-2"
           style={{
-            background: 'linear-gradient(110deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%)',
+            background: 'rgba(59, 130, 246, 0.15)',
+            border: '1px solid rgba(59, 130, 246, 0.2)',
           }}
-          initial={{ x: '-100%' }}
-          whileHover={{ x: '100%' }}
-          transition={{ duration: 0.6 }}
-        />
-      </div>
-      
-      {/* Floating particles effect */}
-      <div 
-        className="absolute -top-1 -right-1 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background: 'rgba(139, 92, 246, 0.8)',
-        }}
-      >
+        >
+          <Command className="w-3 h-3 text-blue-400" />
+          <span className="text-[10px] text-blue-400 font-bold">K</span>
+        </div>
+        
+        {/* Shine effect on hover */}
         <motion.div
-          className="w-full h-full rounded-full"
-          style={{
-            background: 'rgba(139, 92, 246, 0.8)',
-          }}
-          animate={{ scale: [1, 1.5, 1], opacity: [1, 0, 1] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        />
-      </div>
-      <div 
-        className="absolute -bottom-0.5 -left-0.5 w-1 h-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100"
-        style={{
-          background: 'rgba(168, 85, 247, 0.8)',
-        }}
-      >
-        <motion.div
-          className="w-full h-full rounded-full"
-          style={{
-            background: 'rgba(168, 85, 247, 0.8)',
-          }}
-          animate={{ scale: [1, 1.3, 1], opacity: [1, 0, 1] }}
-          transition={{ duration: 1.8, repeat: Infinity, delay: 0.5 }}
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+          initial={{ x: '-200%' }}
+          animate={{ x: '200%' }}
+          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
         />
       </div>
     </motion.button>
